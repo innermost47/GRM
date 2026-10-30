@@ -76,7 +76,7 @@ Quelques relations mises en évidence :
 
 ## Prédictions datées du 30 octobre 2026
 
-Valeurs figées à cette date, avec le réglage par défaut :
+Valeurs figées à cette date, avec le réglage par défaut. Prédictions révisées le 30 octobre 2026, le jour même de leur publication, après la prise en compte du vide local et de l'incertitude complète sur l'âge des étoiles. La première version donnait H₀ = 71,0 km/s/Mpc et un âge de 13,77 milliards d'années.
 
 | Grandeur | Prédiction |
 |---|---|
