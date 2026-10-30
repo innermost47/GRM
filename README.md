@@ -2,11 +2,11 @@
 
 **Un essai de modèle de l'univers fondé sur les relations.**
 
-Le modèle relie 144 grandeurs de la physique par 117 relations, du grain de Planck aux trous noirs. Il se soumet à une seule épreuve : chaque mesure est cachée à tour de rôle, et le reste du réseau doit la retrouver.
+Le modèle relie 148 grandeurs de la physique par 119 relations, du grain de Planck aux trous noirs. Il se soumet à une seule épreuve : chaque mesure est cachée à tour de rôle, et le reste du réseau doit la retrouver.
 
 Site : **https://grm.anthony-charretier.fr**
 
-> *English summary.* The Global Relational Model is an attempt to describe the universe through relations rather than objects. Each pair of opposites (hot and cold, full and empty, beginning and end, expansion and contraction) yields a numerical relation. Together, 117 relations link 144 physical quantities. Every measurement is hidden in turn and predicted from the rest of the network (leave-one-out cross-validation), and every relation is removed in turn and judged by the rest. The site and comments are in French; the code is in English.
+> *English summary.* The Global Relational Model is an attempt to describe the universe through relations rather than objects. Each pair of opposites (hot and cold, full and empty, beginning and end, expansion and contraction) yields a numerical relation. Together, 119 relations link 148 physical quantities. Every measurement is hidden in turn and predicted from the rest of the network (leave-one-out cross-validation), and every relation is removed in turn and judged by the rest. The site and comments are in French; the code is in English.
 
 ---
 
@@ -55,18 +55,19 @@ Chaque relation a aussi un statut : identité (définition, non testée), physiq
 
 Réglage par défaut : relation d'âge H × âge = 1 ; vide local branché, car l'expansion mesurée autour de la Voie lactée n'est pas celle de l'univers entier ; valeurs de Planck dépendant du modèle standard laissées de côté. L'âge des plus vieilles étoiles est pris avec son incertitude complète (13,5 ± 0,52 milliards d'années, statistique et systématique).
 
-- **Mesures retrouvées :** 36 sur 37, mais elles ne se valent pas :
+- **Mesures retrouvées :** 42 sur 42, mais elles ne se valent pas :
   - 6 sont garanties par les seules définitions et ne testent rien ;
-  - 19 sont retrouvées par la physique établie ou une symétrie (19 sur 19) ;
-  - 12 passent par une relation à l'essai et la testent vraiment : 11 sur 12 sont retrouvées. Seule échoue la masse du pion (Weinberg).
+  - 25 sont retrouvées par la physique établie ou une symétrie (25 sur 25) ;
+  - 11 passent par une relation à l'essai et la testent vraiment : 11 sur 11 sont retrouvées.
 
   Plusieurs mesures d'un même groupe testent souvent une seule relation.
-- **Relations à l'essai tenues :** 8 sur 9. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,2 σ), vide local (−1,5 σ), énergie noire = tension espace / temps (+1,0 σ), Verlinde (+0,7 σ), a₀ = cH₀/2π (+0,6 σ), Dirac et le budget du présent (en ordre de grandeur). Seul Weinberg ne tient pas (+2,2 σ). Une fois le local séparé du global, H × âge = 1 et Verlinde tiennent ensemble : leur conflit venait de l'hypothèse « local = global ».
+- **Relations à l'essai tenues :** 8 sur 8. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,2 σ), vide local (−1,5 σ), énergie noire = tension espace / temps (+1,0 σ), Verlinde (+0,7 σ), a₀ = cH₀/2π (+0,6 σ), Dirac et le budget du présent (en ordre de grandeur). La relation de Weinberg entre le pion et l'expansion (+2,2 σ) a été rangée dans les échecs : ce 8 sur 8 vient donc en partie de ce retrait, pas d'une réussite. Une fois le local séparé du global, H × âge = 1 et Verlinde tiennent ensemble : leur conflit venait de l'hypothèse « local = global ».
 - **Énergie noire = tension espace / temps** (affirmation d'Anthony, écrite sous la forme de l'énergie noire holographique de Li, 2004) : l'énergie noire varierait dans le temps. Le réseau prédit w₀ = −0,89 ; les données DESI DR2 combinées au fond diffus et aux supernovae donnent −0,84 ± 0,05. C'est une prédiction risquée : si l'énergie noire se révèle constante (w₀ = −1), elle tombe.
+- **Pion = force forte, séparée** (principe d'Anthony appliqué au pion) : relié à l'expansion de l'univers (Weinberg, 1972), le pion ne tient pas ; relié à la force forte, il tient. Deux relations le branchent : la portée de la force nucléaire, ħ / (m_π c) = 1,41 fm (Yukawa, 1935, une identité), et la relation de Gell-Mann, Oakes et Renner (1968), qui fait naître la masse du pion des quarks u et d et du condensat du vide de la force forte. Caché, le pion est retrouvé à 135,5 ± 5,1 MeV pour 139,6 mesurés. Limite : le condensat et le facteur F_π/F viennent de calculs sur réseau (FLAG 2021) qui s'appuient eux-mêmes en partie sur la masse du pion.
 - **Un seul secteur sombre** (principe d'Anthony : deux éléments en relation sont la même chose, séparée) : l'énergie noire (tension espace / temps) et la matière noire (tension vide / plein) sont comptées comme les deux faces d'un même objet, à la manière des deux côtés de l'équation d'Einstein, géométrie d'un côté, contenu de l'autre. Le réseau donne Ω_sombre = 0,952, soit environ 95 % de l'univers, avec une face vide 2,82 fois plus lourde que la face pleine aujourd'hui. Un mode optionnel laisse passer de l'énergie d'une face à l'autre (forme de Wang, Gong et Abdalla, 2005) : le passage mesuré, b² = −0,04 ± 0,04, est compatible avec zéro. Ces deux chiffres sont recalculés à partir de l'existant ; ce ne sont pas encore des prédictions indépendantes.
-- **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais, Verlinde dans 0 à 5 % des cas, le vide local dans 0 à 10 % et H × âge = 1 dans 9 à 14 % ; aucune autre constante simple ne remplace celles de Koide, de Verlinde et de H × âge = 1. En revanche a₀ = cH₀/2π tient dans 32 à 55 % des cas, la relation sur l'énergie noire dans 68 à 92 % (w₀ est encore imprécis), et les relations jugées en ordre de grandeur (Weinberg, Dirac, budget du présent) dans 26 à 94 % : leur accord n'a pas encore de valeur de preuve.
+- **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais, Verlinde dans 0 à 5 % des cas, le vide local dans 0 à 10 % et H × âge = 1 dans 9 à 14 % ; aucune autre constante simple ne remplace celles de Koide, de Verlinde et de H × âge = 1. En revanche a₀ = cH₀/2π tient dans 32 à 55 % des cas, la relation sur l'énergie noire dans 68 à 92 % (w₀ est encore imprécis), et les relations jugées en ordre de grandeur (Dirac, budget du présent) dans 42 à 94 % : leur accord n'a pas encore de valeur de preuve.
 - **Zéros de symétrie vérifiés :** 7 sur 7, dont les sommes des hypercharges, la neutralité de l'atome, le principe d'équivalence et la platitude.
-- **Physique établie :** 4 sur 4, dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
+- **Physique établie :** 5 sur 5, dont la relation de Gell-Mann, Oakes et Renner entre le pion et le vide de la force forte (+0,8 σ) et l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
 
 Quelques relations mises en évidence :
 - (T_Planck / T_plancher)² / 4π = 3,3 × 10¹²², le nombre de pixels de Planck de l'horizon final ;

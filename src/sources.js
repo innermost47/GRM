@@ -14,6 +14,8 @@ const SOURCES = [
   ["Borsanyi et al. 2015, écart de masse neutron − proton", "https://arxiv.org/abs/1406.4088"],
   ["Bressi et al. 2011, neutralité de la matière", "https://arxiv.org/abs/1102.2766"],
   ["MICROSCOPE 2022, principe d'équivalence", "https://arxiv.org/abs/2209.15487"],
+  ["FLAG 2021, revue des calculs sur réseau (condensat, F_π/F)", "https://arxiv.org/abs/2111.09849"],
+  ["Relation de Gell-Mann, Oakes et Renner (1968)", "https://doi.org/10.1103/PhysRev.175.2195"],
   ["Formule de Koide", "https://en.wikipedia.org/wiki/Koide_formula"],
   ["NuFIT 6.0, oscillations des neutrinos", "https://arxiv.org/abs/2410.05380"],
   ["DESI DR2, contraintes sur la somme des neutrinos", "https://arxiv.org/abs/2503.14738"],
