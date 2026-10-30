@@ -14,13 +14,13 @@ const NS = "http://www.w3.org/2000/svg";
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const PRESETS = {
-  anthony: { label: "H × âge = 1", age: "c_ht1", local: "s_novoid", de: "c_hde", modelDep: false, failures: false,
-    note: "L'âge suit la relation à l'essai H × âge = 1, et les deux valeurs de Planck qui supposent le modèle standard (H₀ et Ω_Λ) sont laissées de côté. Les autres mesures du fond diffus restent branchées." },
+  anthony: { label: "H × âge = 1", age: "c_ht1", local: "c_kbc", de: "c_hde", modelDep: false, failures: false,
+    note: "L'âge suit la relation à l'essai H × âge = 1, et le vide local est branché : l'expansion mesurée autour de la Voie lactée n'est pas celle de l'univers entier. Les deux valeurs de Planck qui supposent le modèle standard (H₀ et Ω_Λ) sont laissées de côté. Les autres mesures du fond diffus restent branchées." },
   standard: { label: "Modèle standard", age: "s_lcdm", local: "s_novoid", de: "c_hde", modelDep: true, failures: false,
     note: "Le réseau avec la relation d'âge du modèle ΛCDM et toutes les mesures de Planck. La tension de Hubble y apparaît directement entre H₀ local et H₀ du fond diffus." },
 };
 const state = {
-  preset: "anthony", age: "c_ht1", local: "s_novoid", de: "c_hde", modelDep: false, failures: false,
+  preset: "anthony", age: "c_ht1", local: "c_kbc", de: "c_hde", modelDep: false, failures: false,
   relOff: {}, failOn: {}, tol: {}, measOff: {}, measVal: {},
   selected: null, chapter: "all", view: "graph", claimFilter: "claim", looFilter: "reach",
 };

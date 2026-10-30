@@ -378,7 +378,7 @@ const MEASUREMENTS = [
   { id: "m_aC", node: "aC", value: 0.714, sigma: 0.015, src: "formule de masse des noyaux" },
   { id: "m_H0cmb", node: "H0", value: 67.4, sigma: 0.5, src: "Planck 2018, fond diffus", modelDep: true },
   { id: "m_H0loc", node: "H0loc", value: 73.04, sigma: 1.04, src: "SH0ES (Riess et al. 2022)" },
-  { id: "m_t0", node: "t0", value: 13.5, sigma: 0.27, src: "plus vieilles étoiles (Valcin et al. 2021)" },
+  { id: "m_t0", node: "t0", value: 13.5, sigma: 0.52, src: "plus vieilles étoiles (Valcin et al. 2020), stat. ±0,15 et syst. ±0,5" },
   { id: "m_wb", node: "wb", value: 0.02237, sigma: 0.00015, src: "Planck 2018, fond diffus" },
   { id: "m_wc", node: "wc", value: 0.1200, sigma: 0.0012, src: "Planck 2018, fond diffus" },
   { id: "m_OL", node: "OL", value: 0.6847, sigma: 0.0073, src: "Planck 2018, modèle standard", modelDep: true },

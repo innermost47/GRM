@@ -53,20 +53,20 @@ Chaque relation a aussi un statut : identité (définition, non testée), physiq
 
 ## Résultats au 30 octobre 2026
 
-Réglage par défaut (relation d'âge H × âge = 1, valeurs de Planck dépendant du modèle standard laissées de côté) :
+Réglage par défaut : relation d'âge H × âge = 1 ; vide local branché, car l'expansion mesurée autour de la Voie lactée n'est pas celle de l'univers entier ; valeurs de Planck dépendant du modèle standard laissées de côté. L'âge des plus vieilles étoiles est pris avec son incertitude complète (13,5 ± 0,52 milliards d'années, statistique et systématique).
 
-- **Mesures retrouvées :** 32 sur 36, mais elles ne se valent pas :
+- **Mesures retrouvées :** 36 sur 37, mais elles ne se valent pas :
   - 6 sont garanties par les seules définitions et ne testent rien ;
-  - 19 sont retrouvées par la physique établie ou une symétrie (18 sur 19) ;
-  - 11 passent par une relation à l'essai et la testent vraiment : 8 sur 11 sont retrouvées. Échouent la masse du pion (Weinberg), H₀ local et ω_n (conflit entre H × âge = 1 et Verlinde).
+  - 19 sont retrouvées par la physique établie ou une symétrie (19 sur 19) ;
+  - 12 passent par une relation à l'essai et la testent vraiment : 11 sur 12 sont retrouvées. Seule échoue la masse du pion (Weinberg).
 
   Plusieurs mesures d'un même groupe testent souvent une seule relation.
-- **Relations à l'essai tenues :** 6 sur 8. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,0 σ), énergie noire = tension espace / temps (+1,0 σ), a₀ = cH₀/2π (+0,4 σ), Dirac et le budget du présent (en ordre de grandeur). Ne tiennent pas : Weinberg (+2,2 σ) et Verlinde (−3,0 σ), qui demande H₀ = 69,5 quand H × âge = 1 donne 72.
-- **Énergie noire = tension espace / temps** (affirmation d'Anthony, écrite sous la forme de l'énergie noire holographique de Li, 2004) : l'énergie noire varierait dans le temps. Le réseau prédit w₀ = −0,90 ; les données DESI DR2 combinées au fond diffus et aux supernovae donnent −0,84 ± 0,05. C'est une prédiction risquée : si l'énergie noire se révèle constante (w₀ = −1), elle tombe.
-- **Un seul secteur sombre** (principe d'Anthony : deux éléments en relation sont la même chose, séparée) : l'énergie noire (tension espace / temps) et la matière noire (tension vide / plein) sont comptées comme les deux faces d'un même objet, à la manière des deux côtés de l'équation d'Einstein, géométrie d'un côté, contenu de l'autre. Le réseau donne Ω_sombre = 0,955, soit environ 95 % de l'univers, avec une face vide 2,94 fois plus lourde que la face pleine aujourd'hui. Un mode optionnel laisse passer de l'énergie d'une face à l'autre (forme de Wang, Gong et Abdalla, 2005) : le passage mesuré, b² = −0,04 ± 0,04, est compatible avec zéro. Ces deux chiffres sont recalculés à partir de l'existant ; ce ne sont pas encore des prédictions indépendantes.
-- **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais et H × âge = 1 dans 2 % des cas ; aucune autre constante simple ne les remplace. En revanche a₀ = cH₀/2π tient dans 28 % des cas, la relation sur l'énergie noire dans environ 70 % (w₀ est encore imprécis), et les relations jugées en ordre de grandeur (Weinberg, Dirac, budget du présent) dans 25 à 82 % : leur accord n'a pas encore de valeur de preuve.
+- **Relations à l'essai tenues :** 8 sur 9. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,2 σ), vide local (−1,5 σ), énergie noire = tension espace / temps (+1,0 σ), Verlinde (+0,7 σ), a₀ = cH₀/2π (+0,6 σ), Dirac et le budget du présent (en ordre de grandeur). Seul Weinberg ne tient pas (+2,2 σ). Une fois le local séparé du global, H × âge = 1 et Verlinde tiennent ensemble : leur conflit venait de l'hypothèse « local = global ».
+- **Énergie noire = tension espace / temps** (affirmation d'Anthony, écrite sous la forme de l'énergie noire holographique de Li, 2004) : l'énergie noire varierait dans le temps. Le réseau prédit w₀ = −0,89 ; les données DESI DR2 combinées au fond diffus et aux supernovae donnent −0,84 ± 0,05. C'est une prédiction risquée : si l'énergie noire se révèle constante (w₀ = −1), elle tombe.
+- **Un seul secteur sombre** (principe d'Anthony : deux éléments en relation sont la même chose, séparée) : l'énergie noire (tension espace / temps) et la matière noire (tension vide / plein) sont comptées comme les deux faces d'un même objet, à la manière des deux côtés de l'équation d'Einstein, géométrie d'un côté, contenu de l'autre. Le réseau donne Ω_sombre = 0,952, soit environ 95 % de l'univers, avec une face vide 2,82 fois plus lourde que la face pleine aujourd'hui. Un mode optionnel laisse passer de l'énergie d'une face à l'autre (forme de Wang, Gong et Abdalla, 2005) : le passage mesuré, b² = −0,04 ± 0,04, est compatible avec zéro. Ces deux chiffres sont recalculés à partir de l'existant ; ce ne sont pas encore des prédictions indépendantes.
+- **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais, Verlinde dans 0 à 5 % des cas, le vide local dans 0 à 10 % et H × âge = 1 dans 9 à 14 % ; aucune autre constante simple ne remplace celles de Koide, de Verlinde et de H × âge = 1. En revanche a₀ = cH₀/2π tient dans 32 à 55 % des cas, la relation sur l'énergie noire dans 68 à 92 % (w₀ est encore imprécis), et les relations jugées en ordre de grandeur (Weinberg, Dirac, budget du présent) dans 26 à 94 % : leur accord n'a pas encore de valeur de preuve.
 - **Zéros de symétrie vérifiés :** 7 sur 7, dont les sommes des hypercharges, la neutralité de l'atome, le principe d'équivalence et la platitude.
-- **Physique établie :** 4 sur 5 (« pas de vide local » est en tension avec H × âge = 1), dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
+- **Physique établie :** 4 sur 4, dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
 
 Quelques relations mises en évidence :
 - (T_Planck / T_plancher)² / 4π = 3,3 × 10¹²², le nombre de pixels de Planck de l'horizon final ;
@@ -81,11 +81,11 @@ Valeurs figées à cette date, avec le réglage par défaut :
 | Grandeur | Prédiction |
 |---|---|
 | Somme des masses des neutrinos (ordre normal) | 0,0607 eV, à 0,002 eV du minimum imposé par les oscillations : difficile à distinguer d'un neutrino sans masse |
-| Masse du neutrino le plus léger | 1,58 meV |
-| Expansion globale H₀ | 71,0 km/s/Mpc |
-| Âge de l'univers | 13,77 milliards d'années |
+| Masse du neutrino le plus léger | 1,55 meV |
+| Expansion globale H₀ | 69,2 km/s/Mpc (local, autour de la Voie lactée : 74,2) |
+| Âge de l'univers | 14,1 milliards d'années |
 | Masse lourde de la bascule des neutrinos | 1,2 × 10¹⁵ GeV |
-| Équation d'état de l'énergie noire w₀ | −0,90 (énergie noire variable dans le temps) |
+| Équation d'état de l'énergie noire w₀ | −0,89 (énergie noire variable dans le temps) |
 
 ## Limites
 
