@@ -656,12 +656,22 @@ function covEntry(fit, a, b) {
   return part.cov[part.local.get(a) * part.n + part.local.get(b)];
 }
 
+// Solve from the given start and from the default start, keep the better fit
+// (a start far from the answer can leave Gauss-Newton stuck on a nonlinear relation).
+function solveBest(rels, meas, xStart, options) {
+  const a = solveNetwork(rels, meas, xStart, options);
+  if (!xStart) return a;
+  const b = solveNetwork(rels, meas, null, options);
+  const cost = f => f.parts.reduce((s, p) => s + p.cost, 0);
+  return cost(b) < cost(a) * (1 - 1e-9) ? b : a;
+}
+
 // Hide one measurement, predict it from all the others.
 function testMeasurement(rels, meas, k, xStart, options) {
   const m = meas[k];
   const others = meas.filter((_, j) => j !== k);
   const i = NODE_INDEX[m.node];
-  const fit = solveNetwork(rels, others, xStart, { only: options.compOfNode(i) });
+  const fit = solveBest(rels, others, xStart, { only: options.compOfNode(i) });
   const vp = variance(fit, i);
   if (!(vp < UNREACHABLE_VAR)) return { m, reachable: false };
   const pred = fit.x[i];
@@ -675,7 +685,7 @@ function testRelation(rels, meas, r, xStart, options) {
   const others = rels.filter(o => o !== r);
   const anyVar = r.nodes.map(id => NODE_INDEX[id]).find(i => options.compOfNode(i));
   if (anyVar === undefined) return { r, testable: false };
-  const fit = solveNetwork(others, meas, xStart, { only: options.compOfNode(anyVar) });
+  const fit = solveBest(others, meas, xStart, { only: options.compOfNode(anyVar) });
   const part = fit.parts[0];
   const gObj = relationGradient(r, fit.x);
   const g = new Float64Array(part.n);

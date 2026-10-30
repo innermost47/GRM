@@ -55,15 +55,16 @@ Chaque relation a aussi un statut : identité (définition, non testée), physiq
 
 Réglage par défaut (relation d'âge H × âge = 1, valeurs de Planck dépendant du modèle standard laissées de côté) :
 
-- **Mesures retrouvées :** 34 sur 35, mais elles ne se valent pas :
+- **Mesures retrouvées :** 31 sur 35, mais elles ne se valent pas :
   - 6 sont garanties par les seules définitions et ne testent rien ;
-  - 19 sont retrouvées par la physique établie ou une symétrie (19 sur 19) ;
-  - 10 passent par une relation à l'essai et la testent vraiment : 9 sur 10 sont retrouvées. Celle qui manque est la masse du pion, tenue seulement par la relation de Weinberg.
+  - 19 sont retrouvées par la physique établie ou une symétrie (18 sur 19) ;
+  - 10 passent par une relation à l'essai et la testent vraiment : 7 sur 10 sont retrouvées. Échouent la masse du pion (Weinberg), H₀ local et ω_n (conflit entre H × âge = 1 et Verlinde).
 
   Plusieurs mesures d'un même groupe testent souvent une seule relation.
-- **Relations à l'essai tenues :** 6 sur 7. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−0,5 σ), a₀ = cH₀/2π (+0,4 σ), Verlinde (−0,1 σ), Dirac et le budget du présent (en ordre de grandeur). La relation de Weinberg ne tient pas (+2,2 σ).
+- **Relations à l'essai tenues :** 5 sur 7. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,0 σ), a₀ = cH₀/2π (+0,4 σ), Dirac et le budget du présent (en ordre de grandeur). Ne tiennent pas : Weinberg (+2,2 σ) et Verlinde (−3,0 σ), qui demande H₀ = 69,5 quand H × âge = 1 donne 72.
+- **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais et H × âge = 1 dans 2 % des cas ; aucune autre constante simple ne les remplace. En revanche a₀ = cH₀/2π tient dans 28 % des cas, et les relations jugées en ordre de grandeur (Weinberg, Dirac, budget du présent) dans 25 à 82 % : leur accord n'a pas de valeur de preuve.
 - **Zéros de symétrie vérifiés :** 7 sur 7, dont les sommes des hypercharges, la neutralité de l'atome, le principe d'équivalence et la platitude.
-- **Physique établie :** 5 sur 5, dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
+- **Physique établie :** 4 sur 5 (« pas de vide local » est en tension avec H × âge = 1), dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
 
 Quelques relations mises en évidence :
 - (T_Planck / T_plancher)² / 4π = 3,3 × 10¹²², le nombre de pixels de Planck de l'horizon final ;
@@ -108,6 +109,7 @@ scripts/
   layout.js       recalcule la carte
   build.py        assemble site/index.html (un seul fichier, sans serveur)
   check.js        lance les deux tests en ligne de commande
+  chance_test.js  test du hasard : univers aléatoires et formules sœurs
   make_images.py  régénère favicon et image de partage
 site/             le site prêt à déposer (index.html, favicon.ico, og-image.png, robots.txt, sitemap.xml)
 ```
