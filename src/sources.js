@@ -32,6 +32,7 @@ const SOURCES = [
   ["Grossmann & Kross 2014, le paradoxe de Salomon et la troisième personne", "https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others"],
   ["Grossmann, les composantes du raisonnement sage", "https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html"],
   ["Li 2004, un modèle d'énergie noire holographique", "https://arxiv.org/abs/hep-th/0403127"],
+  ["Wang, Gong & Abdalla 2005, énergie noire holographique en interaction", "https://arxiv.org/abs/hep-th/0506069"],
   ["DESI DR2 et énergie noire dynamique (w₀, w_a), analyse combinée", "https://arxiv.org/abs/2512.07281"],
   ["Le présent de trois secondes, une valeur discutée", "https://bps.org.uk/research-digest/new-review-punctures-myth-now-three-seconds-long"],
 ];

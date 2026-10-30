@@ -3,7 +3,7 @@
 // B. Sister formulas: same quantities, other simple constants; how many of them would hold just as well?
 const M = require("../src/model.js");
 const age = "c_ht1";
-const rels = M.RELATIONS.filter(r => r.kind !== "failure" && (!r.group || r.id === age || r.id === "s_novoid")).map(r => ({ ...r, tolNow: r.tol }));
+const rels = M.RELATIONS.filter(r => r.kind !== "failure" && (!r.group || r.id === age || r.id === "s_novoid" || r.id === "c_hde")).map(r => ({ ...r, tolNow: r.tol }));
 const meas0 = M.MEASUREMENTS.filter(m => !m.modelDep);
 const claims = rels.filter(r => r.kind === "claim");
 const holds = (rs, ms, r) => { const f = M.solveNetwork(rs, ms, null, { fullCov: true }); const t = M.testRelation(rs, ms, r, null, M.testOptions(f)); return t.testable ? Math.abs(t.pull) < 2 : null; };

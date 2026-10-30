@@ -2,7 +2,7 @@
 const M = require("../src/model.js");
 const preset = process.argv[2] === "standard" ? "standard" : "anthony";
 const age = preset === "standard" ? "s_lcdm" : "c_ht1";
-const rels = M.RELATIONS.filter(r => r.kind !== "failure" && (!r.group || r.id === age || r.id === "s_novoid"))
+const rels = M.RELATIONS.filter(r => r.kind !== "failure" && (!r.group || r.id === age || r.id === "s_novoid" || r.id === "c_hde"))
   .map(r => ({ ...r, tolNow: r.tol }));
 const meas = M.MEASUREMENTS.filter(m => preset === "standard" || !m.modelDep);
 const fit = M.solveNetwork(rels, meas, null, { fullCov: true });

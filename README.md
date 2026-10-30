@@ -2,11 +2,11 @@
 
 **Un essai de modèle de l'univers fondé sur les relations.**
 
-Le modèle relie 140 grandeurs de la physique par 113 relations, du grain de Planck aux trous noirs. Il se soumet à une seule épreuve : chaque mesure est cachée à tour de rôle, et le reste du réseau doit la retrouver.
+Le modèle relie 144 grandeurs de la physique par 117 relations, du grain de Planck aux trous noirs. Il se soumet à une seule épreuve : chaque mesure est cachée à tour de rôle, et le reste du réseau doit la retrouver.
 
 Site : **https://grm.anthony-charretier.fr**
 
-> *English summary.* The Global Relational Model is an attempt to describe the universe through relations rather than objects. Each pair of opposites (hot and cold, full and empty, beginning and end, expansion and contraction) yields a numerical relation. Together, 113 relations link 140 physical quantities. Every measurement is hidden in turn and predicted from the rest of the network (leave-one-out cross-validation), and every relation is removed in turn and judged by the rest. The site and comments are in French; the code is in English.
+> *English summary.* The Global Relational Model is an attempt to describe the universe through relations rather than objects. Each pair of opposites (hot and cold, full and empty, beginning and end, expansion and contraction) yields a numerical relation. Together, 117 relations link 144 physical quantities. Every measurement is hidden in turn and predicted from the rest of the network (leave-one-out cross-validation), and every relation is removed in turn and judged by the rest. The site and comments are in French; the code is in English.
 
 ---
 
@@ -37,11 +37,11 @@ La démarche, conçue par Anthony, ne cherche pas à expliquer pourquoi les chos
 
 Chaque relation est un « neurone » avec sa propre équation. Il en existe trois types :
 
-| Type            | Forme                                | Espace de calcul   |
-| --------------- | ------------------------------------ | ------------------ |
-| Produit fixe    | Σ exposant × log₁₀ x = log₁₀ K       | linéaire en log₁₀  |
-| Somme nulle     | Σ coefficient × valeur^puissance = K | linéaire en valeur |
-| Équation propre | f(valeurs) = 0                       | non linéaire       |
+| Type | Forme | Espace de calcul |
+|---|---|---|
+| Produit fixe | Σ exposant × log₁₀ x = log₁₀ K | linéaire en log₁₀ |
+| Somme nulle | Σ coefficient × valeur^puissance = K | linéaire en valeur |
+| Équation propre | f(valeurs) = 0 | non linéaire |
 
 Chaque relation a aussi un statut : identité (définition, non testée), physique établie, zéro de symétrie, relation à l'essai (avec son origine : littérature ou proposition faite pendant le travail), ou échec du carnet (débranché par défaut).
 
@@ -63,6 +63,7 @@ Réglage par défaut (relation d'âge H × âge = 1, valeurs de Planck dépendan
   Plusieurs mesures d'un même groupe testent souvent une seule relation.
 - **Relations à l'essai tenues :** 6 sur 8. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−1,0 σ), énergie noire = tension espace / temps (+1,0 σ), a₀ = cH₀/2π (+0,4 σ), Dirac et le budget du présent (en ordre de grandeur). Ne tiennent pas : Weinberg (+2,2 σ) et Verlinde (−3,0 σ), qui demande H₀ = 69,5 quand H × âge = 1 donne 72.
 - **Énergie noire = tension espace / temps** (affirmation d'Anthony, écrite sous la forme de l'énergie noire holographique de Li, 2004) : l'énergie noire varierait dans le temps. Le réseau prédit w₀ = −0,90 ; les données DESI DR2 combinées au fond diffus et aux supernovae donnent −0,84 ± 0,05. C'est une prédiction risquée : si l'énergie noire se révèle constante (w₀ = −1), elle tombe.
+- **Un seul secteur sombre** (principe d'Anthony : deux éléments en relation sont la même chose, séparée) : l'énergie noire (tension espace / temps) et la matière noire (tension vide / plein) sont comptées comme les deux faces d'un même objet, à la manière des deux côtés de l'équation d'Einstein, géométrie d'un côté, contenu de l'autre. Le réseau donne Ω_sombre = 0,955, soit environ 95 % de l'univers, avec une face vide 2,94 fois plus lourde que la face pleine aujourd'hui. Un mode optionnel laisse passer de l'énergie d'une face à l'autre (forme de Wang, Gong et Abdalla, 2005) : le passage mesuré, b² = −0,04 ± 0,04, est compatible avec zéro. Ces deux chiffres sont recalculés à partir de l'existant ; ce ne sont pas encore des prédictions indépendantes.
 - **Test du hasard** (`scripts/chance_test.js`) : avec des constantes tirées au hasard (jusqu'à ×10), Koide ne tient jamais et H × âge = 1 dans 2 % des cas ; aucune autre constante simple ne les remplace. En revanche a₀ = cH₀/2π tient dans 28 % des cas, la relation sur l'énergie noire dans environ 70 % (w₀ est encore imprécis), et les relations jugées en ordre de grandeur (Weinberg, Dirac, budget du présent) dans 25 à 82 % : leur accord n'a pas encore de valeur de preuve.
 - **Zéros de symétrie vérifiés :** 7 sur 7, dont les sommes des hypercharges, la neutralité de l'atome, le principe d'équivalence et la platitude.
 - **Physique établie :** 4 sur 5 (« pas de vide local » est en tension avec H × âge = 1), dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
@@ -77,14 +78,14 @@ Quelques relations mises en évidence :
 
 Valeurs figées à cette date, avec le réglage par défaut :
 
-| Grandeur                                      | Prédiction                                                                                                     |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Grandeur | Prédiction |
+|---|---|
 | Somme des masses des neutrinos (ordre normal) | 0,0607 eV, à 0,002 eV du minimum imposé par les oscillations : difficile à distinguer d'un neutrino sans masse |
-| Masse du neutrino le plus léger               | 1,58 meV                                                                                                       |
-| Expansion globale H₀                          | 71,0 km/s/Mpc                                                                                                  |
-| Âge de l'univers                              | 13,77 milliards d'années                                                                                       |
-| Masse lourde de la bascule des neutrinos      | 1,2 × 10¹⁵ GeV                                                                                                 |
-| Équation d'état de l'énergie noire w₀         | −0,90 (énergie noire variable dans le temps)                                                                   |
+| Masse du neutrino le plus léger | 1,58 meV |
+| Expansion globale H₀ | 71,0 km/s/Mpc |
+| Âge de l'univers | 13,77 milliards d'années |
+| Masse lourde de la bascule des neutrinos | 1,2 × 10¹⁵ GeV |
+| Équation d'état de l'énergie noire w₀ | −0,90 (énergie noire variable dans le temps) |
 
 ## Limites
 

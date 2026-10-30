@@ -14,13 +14,13 @@ const NS = "http://www.w3.org/2000/svg";
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const PRESETS = {
-  anthony: { label: "H × âge = 1", age: "c_ht1", local: "s_novoid", modelDep: false, failures: false,
+  anthony: { label: "H × âge = 1", age: "c_ht1", local: "s_novoid", de: "c_hde", modelDep: false, failures: false,
     note: "L'âge suit la relation à l'essai H × âge = 1, et les deux valeurs de Planck qui supposent le modèle standard (H₀ et Ω_Λ) sont laissées de côté. Les autres mesures du fond diffus restent branchées." },
-  standard: { label: "Modèle standard", age: "s_lcdm", local: "s_novoid", modelDep: true, failures: false,
+  standard: { label: "Modèle standard", age: "s_lcdm", local: "s_novoid", de: "c_hde", modelDep: true, failures: false,
     note: "Le réseau avec la relation d'âge du modèle ΛCDM et toutes les mesures de Planck. La tension de Hubble y apparaît directement entre H₀ local et H₀ du fond diffus." },
 };
 const state = {
-  preset: "anthony", age: "c_ht1", local: "s_novoid", modelDep: false, failures: false,
+  preset: "anthony", age: "c_ht1", local: "s_novoid", de: "c_hde", modelDep: false, failures: false,
   relOff: {}, failOn: {}, tol: {}, measOff: {}, measVal: {},
   selected: null, chapter: "all", view: "graph", claimFilter: "claim", looFilter: "reach",
 };
@@ -75,6 +75,7 @@ function activeRelations() {
   return RELATIONS.filter(r => {
     if (r.group === "age") return state.age === r.id;
     if (r.group === "local") return state.local === r.id;
+    if (r.group === "de") return state.de === r.id;
     if (r.kind === "failure") return state.failures ? !state.relOff[r.id] : !!state.failOn[r.id];
     return !state.relOff[r.id];
   }).map(r => ({ ...r, tolNow: state.tol[r.id] || r.tol }));
@@ -522,7 +523,7 @@ function segButtons(container, options, current, onPick) {
 function markCustom() { state.preset = "custom"; }
 function applyPreset(id) {
   const p = PRESETS[id];
-  Object.assign(state, { preset: id, age: p.age, local: p.local, modelDep: p.modelDep, failures: p.failures, relOff: {}, failOn: {}, tol: {}, measOff: {}, measVal: {} });
+  Object.assign(state, { preset: id, age: p.age, local: p.local, de: p.de, modelDep: p.modelDep, failures: p.failures, relOff: {}, failOn: {}, tol: {}, measOff: {}, measVal: {} });
   compute();
 }
 function renderControls() {
@@ -532,6 +533,7 @@ function renderControls() {
     : PRESETS[state.preset].note;
   segButtons(document.getElementById("ageSeg"), [["c_ht1", "H × âge = 1 (toutes les relations)"], ["s_lcdm", "modèle standard"]], state.age, v => { state.age = v; markCustom(); compute(); });
   segButtons(document.getElementById("localSeg"), [["s_novoid", "comme partout"], ["c_kbc", "vide local KBC"]], state.local, v => { state.local = v; markCustom(); compute(); });
+  segButtons(document.getElementById("deSeg"), [["c_hde", "tension espace / temps"], ["c_ihde", "en échange avec la matière"]], state.de, v => { state.de = v; markCustom(); compute(); });
   segButtons(document.getElementById("mdSeg"), [[false, "laissées de côté"], [true, "branchées"]], state.modelDep, v => { state.modelDep = v; markCustom(); compute(); });
   segButtons(document.getElementById("failSeg"), [[false, "débranchés"], [true, "branchés"]], state.failures, v => { state.failures = v; markCustom(); compute(); });
   segButtons(document.getElementById("viewSeg"), [["graph", "Carte"], ["list", "Liste"]], state.view, v => { state.view = v; renderView(); });
