@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Pour citer ce travail, merci d'utiliser les informations ci-dessous."
+title: "Global Relational Model (GRM)"
+abstract: "Un essai de modèle de l'univers fondé sur les relations : 140 grandeurs de la physique reliées par 113 relations ; chaque mesure est cachée puis retrouvée par le reste du réseau."
+authors:
+  - family-names: Charretier
+    given-names: Anthony
+    email: anthony.charretier@etik.com
+    website: "https://anthony-charretier.fr"
+date-released: 2026-10-30
+version: "2026.10.30"
+url: "https://grm.anthony-charretier.fr"
+license: MIT
+keywords:
+  - cosmology
+  - relational model
+  - fundamental constants
+  - black holes
+  - neutrinos
+  - Hubble tension
