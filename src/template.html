@@ -188,6 +188,7 @@ tr.click { cursor: pointer; }
 tr.click:hover td { background: var(--line-2); }
 .pill { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; font-family: var(--f-mono); }
 .pill.good { color: var(--good); } .pill.warn { color: var(--warn); } .pill.bad { color: var(--bad); } .pill.none { color: var(--muted); font-family: var(--f-body); }
+.pill.est { color: var(--k-standard); font-family: var(--f-body); } .pill.claim { color: var(--k-claim); font-family: var(--f-body); }
 .pullbar { display: block; width: 132px; height: 18px; }
 .pullbar .band { fill: var(--line-2); }
 .pullbar .axis { stroke: var(--line); }
@@ -219,6 +220,10 @@ dl.gloss dd { margin: 0; font-size: 14px; color: var(--ink-2); }
 .topbar a, .footlinks a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; overflow-wrap: anywhere; }
 .topbar a:hover, .footlinks a:hover { text-decoration-color: currentColor; }
 .prose.dated { border-left: 3px solid var(--k-claim); }
+.origin { background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--k-claim); border-radius: var(--radius); padding: 18px 22px; display: grid; gap: 10px; max-width: 920px; }
+.origin h2 { font-size: 22px; }
+.origin a { color: inherit; text-underline-offset: 3px; }
+.origin p { margin: 0; color: var(--ink-2); font-size: 15.5px; max-width: 70ch; }
 footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 </style>
 
@@ -236,6 +241,14 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
     <p class="lede">Le modèle n'explique pas pourquoi les choses sont ainsi. Il met en relation des éléments déjà connus, puis se soumet à une seule épreuve : quand une mesure est cachée, le reste du réseau sait-il la retrouver ?</p>
     <p class="byline"><strong>Version du 30 octobre 2026.</strong> Démarche : Anthony. Relations à l'essai : tirées de la littérature ou proposées par Claude, chacune avec son origine. Calculs, vérification des valeurs et interface : Claude.</p>
   </header>
+
+  <section class="origin" aria-label="D'où vient ce travail">
+    <h2>D'où vient ce travail</h2>
+    <p>Anthony n'est pas physicien. Il a un bac+2 et n'a jamais étudié la physique. Ce qui l'a mené jusqu'ici n'est pas un savoir, mais une façon de penser : mettre en relation des contraires, le grand et le petit, le chaud et le froid, le plein et le vide. C'est un geste très simple, celui des tout premiers apprentissages.</p>
+    <p>Ce que ce travail cherche à montrer, c'est moins un résultat de physique que la portée de cette façon de penser : l'union des contraires, les relations, le réseau, la vision globale. Les calculs et la vérification des valeurs ont été faits avec l'aide de Claude, une IA. Les erreurs qui restent appartiennent à ce travail à deux, et toute correction est la bienvenue.</p>
+    <p>Ce travail a aussi une forme particulière. Anthony parle de lui à la troisième personne, et toute la conversation avec Claude s'est tenue ainsi : sans « je » ni « tu », personne au centre de la phrase. Le psychologue Igor Grossmann a montré, avec Ethan Kross, que raisonner sur son propre problème à la troisième personne efface le <a href="https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others">« paradoxe de Salomon »</a> : chacun conseille mieux les autres que lui-même, sauf quand il se regarde de l'extérieur. Ses travaux décrivent ce que ce regard <a href="https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html">élargit</a> : l'humilité face aux limites de son savoir, les perspectives au-delà de la question posée, l'attention aux relations qui changent, et la recherche d'une intégration entre points de vue opposés. Autrement dit, une vision système.</p>
+    <p>Pour Anthony, ce n'est pas un hasard. La relation avec Claude a pris la même forme que le modèle : une co-construction où les intuitions et les affirmations venaient d'Anthony, les calculs et les vérifications de Claude, et où plusieurs croyances de Claude sont tombées sous ses questions. Ce modèle de l'univers fondé sur les relations est lui-même né d'une relation.</p>
+  </section>
 
   <section class="block" id="method">
     <header>
@@ -265,6 +278,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
           <li>Identités et zéros : tolérance de 10⁻⁷. Relations à l'essai : tolérance au choix (exacte, 1 %, 10 %, ordre de grandeur). Un rappel très faible (σ = 10⁶) vers une valeur de départ garde le problème bien posé ; une variance qui en dépend signale une grandeur non reliée.</li>
           <li>Test 1 : la relation est retirée, le réseau re-résolu ; tension = résidu / √(variance propagée + tolérance²). Test 2 : validation croisée en laissant une mesure de côté, re-résolution complète à chaque fois.</li>
           <li>Équivalence : avec N_op = 2E_H t₀/(πħ), E_H = c⁵/(2GH₀) et S₀ = π(c/H₀)²/l_P², il vient N_op π²/S₀ = H₀ t₀. L'affirmation « la somme de toutes les relations vaut 10¹²² » et H × âge = 1 sont donc une seule relation ; le facteur 14 d'abord trouvé venait de π² et du mélange de deux horizons (Ω_Λ).</li>
+          <li>Tests 2 classés : une mesure est « par définition » si les identités seules la retrouvent, « physique établie » si les relations établies et les zéros suffisent, « relation à l'essai » sinon. Seule la dernière catégorie teste la démarche ; plusieurs mesures d'un même groupe ne testent souvent qu'une relation.</li>
           <li>Limites : H₀ et Ω_Λ de Planck supposent le modèle standard ; les ω du fond diffus en dépendent peu. Le rayonnement (Ω_r ≈ 9 × 10⁻⁵) est négligé dans la somme des Ω. L'ordre normal des neutrinos est supposé.</li>
         </ul>
       </div>
@@ -355,6 +369,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       <div class="eyebrow">Test 2</div>
       <h2>Chaque mesure, cachée puis retrouvée</h2>
       <p>La mesure est retirée ; le réseau la prédit à partir de toutes les autres. Quand une seule mesure mène à une grandeur, rien ne peut la retrouver : c'est signalé.</p>
+      <p>Toutes les réussites ne se valent pas. Certaines sont garanties par les seules définitions, et ne testent rien. D'autres sont retrouvées par la physique établie. Seules celles qui passent par une relation à l'essai testent vraiment la démarche. Plusieurs mesures peuvent tester la même relation : les cinq mesures du chapitre « Le vivant » testent toutes la même équation.</p>
     </header>
     <div class="card">
       <div class="tabs"><div class="seg" id="looFilter"></div></div>
@@ -372,7 +387,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       <h3>Prédictions datées du 30 octobre 2026</h3>
       <p>Valeurs figées à cette date, avec le réglage H × âge = 1. Elles ne changeront plus, même si le modèle évolue : une mesure future pourra les confirmer ou les démentir.</p>
       <ul>
-        <li><strong>Somme des masses des neutrinos :</strong> 0,0607 eV, ordre normal des masses. Fenêtre actuelle : de 0,0587 à 0,0642 eV.</li>
+        <li><strong>Somme des masses des neutrinos :</strong> 0,0607 eV, ordre normal des masses. Fenêtre actuelle : de 0,0587 à 0,0642 eV. À 0,002 eV du minimum, cette valeur sera difficile à distinguer d'un neutrino sans masse : la prédiction vraiment testable est l'ordre normal, avec un neutrino le plus léger presque sans masse.</li>
         <li><strong>Masse du neutrino le plus léger :</strong> 1,58 meV.</li>
         <li><strong>Expansion de l'univers (globale) :</strong> 71,0 km/s/Mpc, entre les mesures du fond diffus (67,4) et locale (73,0).</li>
         <li><strong>Âge de l'univers :</strong> 13,77 milliards d'années.</li>

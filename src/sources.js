@@ -29,5 +29,7 @@ const SOURCES = [
   ["Métrique de Kasner", "https://en.wikipedia.org/wiki/Kasner_metric"],
   ["Saadeh et al. 2016, isotropie de l'expansion", "https://arxiv.org/abs/1605.07178"],
   ["Bilan radiatif de la Terre (CERES)", "https://en.wikipedia.org/wiki/Earth%27s_energy_budget"],
+  ["Grossmann & Kross 2014, le paradoxe de Salomon et la troisième personne", "https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others"],
+  ["Grossmann, les composantes du raisonnement sage", "https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html"],
   ["Le présent de trois secondes, une valeur discutée", "https://bps.org.uk/research-digest/new-review-punctures-myth-now-three-seconds-long"],
 ];

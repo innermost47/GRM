@@ -91,7 +91,7 @@ function compute() {
   const rels = activeRelations(), meas = activeMeasurements();
   const fit = solveNetwork(rels, meas, null, { fullCov: true });
   const measured = new Set(meas.map(m => m.node));
-  res = { rels, meas, fit, measured, relIds: new Set(rels.map(r => r.id)), loo: new Map(), rt: new Map(), done: 0, total: 0, busy: true };
+  res = { rels, meas, fit, measured, relIds: new Set(rels.map(r => r.id)), loo: new Map(), rt: new Map(), carrier: new Map(), done: 0, total: 0, busy: true };
   const items = [];
   meas.forEach((m, k) => { if (!m.base) items.push({ kind: "m", k }); });
   rels.forEach(r => { if (r.kind !== "identity") items.push({ kind: "r", r }); });
@@ -99,15 +99,34 @@ function compute() {
   renderAll();
   runTests(items, gen);
 }
+// What a recovered measurement really tests: the definitions alone, established physics, or a relation under test.
+const CARRIER = {
+  def: { label: "par définition", cls: "none", plain: "Les seules définitions suffisent à la retrouver : le résultat est garanti et ne teste rien." },
+  est: { label: "physique établie", cls: "est", plain: "Retrouvée par la physique établie ou une symétrie, sans aucune relation à l'essai." },
+  claim: { label: "relation à l'essai", cls: "claim", plain: "Seule une relation à l'essai permet de la retrouver : c'est un vrai test de cette relation." },
+};
 function runTests(items, myGen) {
   const opt = testOptions(res.fit);
+  const idRels = res.rels.filter(r => r.kind === "identity");
+  const estRels = res.rels.filter(r => r.kind === "identity" || r.kind === "standard" || r.kind === "zero");
+  const fitId = solveNetwork(idRels, res.meas, res.fit.x), optId = testOptions(fitId);
+  const fitEst = solveNetwork(estRels, res.meas, res.fit.x), optEst = testOptions(fitEst);
+  res.carrier = new Map();
   let idx = 0;
   const tick = () => {
     if (myGen !== gen) return;
     const t0 = performance.now();
     while (idx < items.length && performance.now() - t0 < 24) {
       const it = items[idx++];
-      if (it.kind === "m") { const m = res.meas[it.k]; res.loo.set(m.id, testMeasurement(res.rels, res.meas, it.k, res.fit.x, opt)); }
+      if (it.kind === "m") {
+        const m = res.meas[it.k], l = testMeasurement(res.rels, res.meas, it.k, res.fit.x, opt);
+        res.loo.set(m.id, l);
+        if (l.reachable) {
+          const c = testMeasurement(idRels, res.meas, it.k, fitId.x, optId).reachable ? "def"
+            : testMeasurement(estRels, res.meas, it.k, fitEst.x, optEst).reachable ? "est" : "claim";
+          res.carrier.set(m.id, c);
+        }
+      }
       else res.rt.set(it.r.id, testRelation(res.rels, res.meas, it.r, res.fit.x, opt));
       res.done++;
     }
@@ -125,7 +144,8 @@ function measVerdict(l) {
   const p = nodeValueParts(n, l.pred, l.sdPred);
   const c = pullClass(l.pull);
   const head = c === "good" ? "Retrouvée" : c === "warn" ? "Retrouvée de justesse" : "Pas retrouvée";
-  return { cls: c, head: `${head} : écart ${fmtPull(l.pull)}`, body: `Cachée, le reste du réseau la place à ${p.value}${unitOf(n)}${p.unc ? " (" + p.unc + ")" : ""}.` };
+  const car = res.carrier.get(l.m.id);
+  return { cls: c, head: `${head} : écart ${fmtPull(l.pull)}`, body: `Cachée, le reste du réseau la place à ${p.value}${unitOf(n)}${p.unc ? " (" + p.unc + ")" : ""}.${car ? " " + CARRIER[car].plain : ""}` };
 }
 function relVerdict(t, r) {
   if (!isActive(r.id)) return { cls: "none", head: "Débranchée", body: "Cette relation n'entre pas dans le calcul actuel." };
@@ -598,18 +618,20 @@ function renderClaims() {
   document.getElementById("claimTable").innerHTML = h + "</tbody>";
 }
 function renderLoo() {
-  segButtons(document.getElementById("looFilter"), [["reach", "Retrouvables"], ["tension", "En tension (> 2 σ)"], ["all", "Toutes"]], state.looFilter, v => { state.looFilter = v; renderLoo(); });
-  let rows = res.meas.filter(m => !m.base).map(m => ({ m, l: res.loo.get(m.id) }));
+  segButtons(document.getElementById("looFilter"), [["reach", "Retrouvables"], ["claim", "Tests des relations à l'essai"], ["est", "Physique établie"], ["def", "Par définition"], ["tension", "En tension (> 2 σ)"], ["all", "Toutes"]], state.looFilter, v => { state.looFilter = v; renderLoo(); });
+  let rows = res.meas.filter(m => !m.base).map(m => ({ m, l: res.loo.get(m.id), c: res.carrier.get(m.id) }));
   if (state.looFilter === "reach") rows = rows.filter(x => !x.l || x.l.reachable);
+  if (["claim", "est", "def"].includes(state.looFilter)) rows = rows.filter(x => x.c === state.looFilter);
   if (state.looFilter === "tension") rows = rows.filter(x => x.l && x.l.reachable && Math.abs(x.l.pull) >= 2);
-  let h = `<thead><tr><th>Grandeur</th><th>Mesurée</th><th>Retrouvée sans sa mesure</th><th>Écart</th><th class="col-bar"><span class="skip">Position</span></th></tr></thead><tbody>`;
-  if (!rows.length) h += `<tr><td colspan="5" class="note">${res.busy ? "Calcul en cours…" : "Aucune mesure dans ce filtre."}</td></tr>`;
-  rows.forEach(({ m, l }) => {
+  let h = `<thead><tr><th>Grandeur</th><th>Mesurée</th><th>Retrouvée sans sa mesure</th><th>Ce que cela teste</th><th>Écart</th><th class="col-bar"><span class="skip">Position</span></th></tr></thead><tbody>`;
+  if (!rows.length) h += `<tr><td colspan="6" class="note">${res.busy ? "Calcul en cours…" : "Aucune mesure dans ce filtre."}</td></tr>`;
+  rows.forEach(({ m, l, c }) => {
     const n = nodeOf(m.node);
+    const carrier = c ? `<span class="pill ${CARRIER[c].cls}" title="${escapeHtml(CARRIER[c].plain)}">${CARRIER[c].label}</span>` : `<span class="pill none">—</span>`;
     let pred = `<span class="sub">calcul…</span>`, pill = `<span class="pill none">…</span>`, bar = "";
     if (l && !l.reachable) { pred = `<span class="sub">aucun autre chemin</span>`; pill = `<span class="pill none">seule source</span>`; }
     else if (l) { const p = nodeValueParts(n, l.pred, l.sdPred); pred = `${p.value}${escapeHtml(unitOf(n))}<span class="sub">${p.unc}</span>`; pill = `<span class="pill ${pullClass(l.pull)}">${fmtPull(l.pull)}</span>`; bar = pullBar(l.pull); }
-    h += `<tr class="click" data-go="q:${n.id}"><td>${escapeHtml(n.sym)} · ${escapeHtml(n.name)}<span class="sub">${escapeHtml(CH[n.ch].name)}</span></td><td class="num">${fmt(m.value, 5)}${escapeHtml(unitOf(n))}<span class="sub" style="font-family:var(--f-body)">${escapeHtml(m.src)}</span></td><td class="num">${pred}</td><td>${pill}</td><td class="col-bar">${bar}</td></tr>`;
+    h += `<tr class="click" data-go="q:${n.id}"><td>${escapeHtml(n.sym)} · ${escapeHtml(n.name)}<span class="sub">${escapeHtml(CH[n.ch].name)}</span></td><td class="num">${fmt(m.value, 5)}${escapeHtml(unitOf(n))}<span class="sub" style="font-family:var(--f-body)">${escapeHtml(m.src)}</span></td><td class="num">${pred}</td><td>${carrier}</td><td>${pill}</td><td class="col-bar">${bar}</td></tr>`;
   });
   document.getElementById("looTable").innerHTML = h + "</tbody>";
 }
@@ -619,7 +641,7 @@ const TARGETS = {
   M: () => `<span class="pill none">hors de portée directe</span>`,
 };
 const TARGET_TEXT = {
-  Snu: v => ({ cls: v <= 0.0642 ? "good" : "bad", text: `Les oscillations imposent au moins 0,0587 eV ; DESI DR2 et Planck limitent la somme à moins de 0,0642 eV. La valeur du réseau, ${fmt(v, 3)} eV, ${v <= 0.0642 ? "tient dans cette fenêtre étroite" : "en sort"} : les prochains relevés trancheront.` }),
+  Snu: v => ({ cls: v <= 0.0642 ? "good" : "bad", text: `Les oscillations imposent au moins 0,0587 eV ; DESI DR2 et Planck limitent la somme à moins de 0,0642 eV. La valeur du réseau, ${fmt(v, 3)} eV, ${v <= 0.0642 ? "tient dans cette fenêtre" : "en sort"}. Elle n'est qu'à ${fmt(v - 0.0587, 2)} eV du minimum : presque tout neutrino léger donnerait la même somme, et un écart aussi petit serait très difficile à mesurer. Ce qui se teste vraiment, c'est « ordre normal, et un neutrino le plus léger presque sans masse ».` }),
   m1: v => ({ cls: "none", text: `Aucune expérience ne mesure encore m₁ directement ; c'est la somme Σm_ν qui la contraindra.` }),
   M: v => ({ cls: "none", text: `Une masse de ${fmt(v, 2)} GeV est hors de portée des accélérateurs ; seule sa trace (des neutrinos très légers, la matière qui l'emporte sur l'antimatière) est observable.` }),
 };
@@ -663,6 +685,12 @@ function renderCarnet() {
 document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => { const [type, key] = b.dataset.go.split(":"); select(type, key, { scroll: true }); }));
 
 // ---------- Score ----------
+function carrierChip(kind, label) {
+  const ids = [...res.carrier.entries()].filter(([, c]) => c === kind).map(([id]) => id);
+  const ok = ids.filter(id => Math.abs(res.loo.get(id).pull) < 2).length;
+  const cls = !ids.length ? "" : ok === ids.length ? "good" : ok >= ids.length - 1 ? "warn" : "bad";
+  return `<span class="chip ${cls}" title="${escapeHtml(CARRIER[kind].plain)}">${label} <b>${ok} / ${ids.length}</b></span>`;
+}
 function renderScore() {
   const loo = [...res.loo.values()].filter(l => l.reachable);
   const okLoo = loo.filter(l => Math.abs(l.pull) < 2).length;
@@ -674,7 +702,8 @@ function renderScore() {
   };
   const claims = [...by("claim"), ...by("failure")];
   document.getElementById("score").innerHTML =
-    `<span class="chip ${okLoo === loo.length ? "good" : "warn"}">Mesures retrouvées <b>${okLoo} / ${loo.length}</b></span>` +
+    carrierChip("claim", "Mesures qui testent une relation à l'essai") + carrierChip("est", "Mesures retrouvées par la physique établie") +
+    `<span class="chip" title="${escapeHtml(CARRIER.def.plain)}">Garanties par les définitions <b>${[...res.carrier.values()].filter(c => c === "def").length}</b></span>` +
     chip("Relations à l'essai tenues", claims) + chip("Zéros vérifiés", by("zero")) + chip("Physique établie", by("standard")) +
     (res.busy ? `<span class="chip busy">Tests en cours ${res.done} / ${res.total}</span>` : "");
   document.getElementById("footStats").textContent = `${NODES.length} grandeurs · ${res.rels.length} relations branchées sur ${RELATIONS.length} · ${res.meas.length} mesures`;

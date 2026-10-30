@@ -953,6 +953,14 @@
         color: var(--muted);
         font-family: var(--f-body);
       }
+      .pill.est {
+        color: var(--k-standard);
+        font-family: var(--f-body);
+      }
+      .pill.claim {
+        color: var(--k-claim);
+        font-family: var(--f-body);
+      }
       .pullbar {
         display: block;
         width: 132px;
@@ -1126,6 +1134,29 @@
       .prose.dated {
         border-left: 3px solid var(--k-claim);
       }
+      .origin {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--k-claim);
+        border-radius: var(--radius);
+        padding: 18px 22px;
+        display: grid;
+        gap: 10px;
+        max-width: 920px;
+      }
+      .origin h2 {
+        font-size: 22px;
+      }
+      .origin a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+      .origin p {
+        margin: 0;
+        color: var(--ink-2);
+        font-size: 15.5px;
+        max-width: 70ch;
+      }
       footer {
         font-size: 13px;
         color: var(--muted);
@@ -1175,6 +1206,54 @@
           interface : Claude.
         </p>
       </header>
+
+      <section class="origin" aria-label="D'où vient ce travail">
+        <h2>D'où vient ce travail</h2>
+        <p>
+          Anthony n'est pas physicien. Il a un bac+2 et n'a jamais étudié la
+          physique. Ce qui l'a mené jusqu'ici n'est pas un savoir, mais une
+          façon de penser : mettre en relation des contraires, le grand et le
+          petit, le chaud et le froid, le plein et le vide. C'est un geste très
+          simple, celui des tout premiers apprentissages.
+        </p>
+        <p>
+          Ce que ce travail cherche à montrer, c'est moins un résultat de
+          physique que la portée de cette façon de penser : l'union des
+          contraires, les relations, le réseau, la vision globale. Les calculs
+          et la vérification des valeurs ont été faits avec l'aide de Claude,
+          une IA. Les erreurs qui restent appartiennent à ce travail à deux, et
+          toute correction est la bienvenue.
+        </p>
+        <p>
+          Ce travail a aussi une forme particulière. Anthony parle de lui à la
+          troisième personne, et toute la conversation avec Claude s'est tenue
+          ainsi : sans « je » ni « tu », personne au centre de la phrase. Le
+          psychologue Igor Grossmann a montré, avec Ethan Kross, que raisonner
+          sur son propre problème à la troisième personne efface le
+          <a
+            href="https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others"
+            >« paradoxe de Salomon »</a
+          >
+          : chacun conseille mieux les autres que lui-même, sauf quand il se
+          regarde de l'extérieur. Ses travaux décrivent ce que ce regard
+          <a
+            href="https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html"
+            >élargit</a
+          >
+          : l'humilité face aux limites de son savoir, les perspectives au-delà
+          de la question posée, l'attention aux relations qui changent, et la
+          recherche d'une intégration entre points de vue opposés. Autrement
+          dit, une vision système.
+        </p>
+        <p>
+          Pour Anthony, ce n'est pas un hasard. La relation avec Claude a pris
+          la même forme que le modèle : une co-construction où les intuitions et
+          les affirmations venaient d'Anthony, les calculs et les vérifications
+          de Claude, et où plusieurs croyances de Claude sont tombées sous ses
+          questions. Ce modèle de l'univers fondé sur les relations est lui-même
+          né d'une relation.
+        </p>
+      </section>
 
       <section class="block" id="method">
         <header>
@@ -1279,6 +1358,14 @@
                 somme de toutes les relations vaut 10¹²² » et H × âge = 1 sont
                 donc une seule relation ; le facteur 14 d'abord trouvé venait de
                 π² et du mélange de deux horizons (Ω_Λ).
+              </li>
+              <li>
+                Tests 2 classés : une mesure est « par définition » si les
+                identités seules la retrouvent, « physique établie » si les
+                relations établies et les zéros suffisent, « relation à l'essai
+                » sinon. Seule la dernière catégorie teste la démarche ;
+                plusieurs mesures d'un même groupe ne testent souvent qu'une
+                relation.
               </li>
               <li>
                 Limites : H₀ et Ω_Λ de Planck supposent le modèle standard ; les
@@ -1497,6 +1584,14 @@
             autres. Quand une seule mesure mène à une grandeur, rien ne peut la
             retrouver : c'est signalé.
           </p>
+          <p>
+            Toutes les réussites ne se valent pas. Certaines sont garanties par
+            les seules définitions, et ne testent rien. D'autres sont retrouvées
+            par la physique établie. Seules celles qui passent par une relation
+            à l'essai testent vraiment la démarche. Plusieurs mesures peuvent
+            tester la même relation : les cinq mesures du chapitre « Le vivant »
+            testent toutes la même équation.
+          </p>
         </header>
         <div class="card">
           <div class="tabs"><div class="seg" id="looFilter"></div></div>
@@ -1523,7 +1618,10 @@
           <ul>
             <li>
               <strong>Somme des masses des neutrinos :</strong> 0,0607 eV, ordre
-              normal des masses. Fenêtre actuelle : de 0,0587 à 0,0642 eV.
+              normal des masses. Fenêtre actuelle : de 0,0587 à 0,0642 eV. À
+              0,002 eV du minimum, cette valeur sera difficile à distinguer d'un
+              neutrino sans masse : la prédiction vraiment testable est l'ordre
+              normal, avec un neutrino le plus léger presque sans masse.
             </li>
             <li>
               <strong>Masse du neutrino le plus léger :</strong> 1,58 meV.
@@ -6323,6 +6421,14 @@
           "https://en.wikipedia.org/wiki/Earth%27s_energy_budget",
         ],
         [
+          "Grossmann & Kross 2014, le paradoxe de Salomon et la troisième personne",
+          "https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others",
+        ],
+        [
+          "Grossmann, les composantes du raisonnement sage",
+          "https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html",
+        ],
+        [
           "Le présent de trois secondes, une valeur discutée",
           "https://bps.org.uk/research-digest/new-review-punctures-myth-now-three-seconds-long",
         ],
@@ -6539,6 +6645,7 @@
           relIds: new Set(rels.map((r) => r.id)),
           loo: new Map(),
           rt: new Map(),
+          carrier: new Map(),
           done: 0,
           total: 0,
           busy: true,
@@ -6554,8 +6661,39 @@
         renderAll();
         runTests(items, gen);
       }
+      // What a recovered measurement really tests: the definitions alone, established physics, or a relation under test.
+      const CARRIER = {
+        def: {
+          label: "par définition",
+          cls: "none",
+          plain:
+            "Les seules définitions suffisent à la retrouver : le résultat est garanti et ne teste rien.",
+        },
+        est: {
+          label: "physique établie",
+          cls: "est",
+          plain:
+            "Retrouvée par la physique établie ou une symétrie, sans aucune relation à l'essai.",
+        },
+        claim: {
+          label: "relation à l'essai",
+          cls: "claim",
+          plain:
+            "Seule une relation à l'essai permet de la retrouver : c'est un vrai test de cette relation.",
+        },
+      };
       function runTests(items, myGen) {
         const opt = testOptions(res.fit);
+        const idRels = res.rels.filter((r) => r.kind === "identity");
+        const estRels = res.rels.filter(
+          (r) =>
+            r.kind === "identity" || r.kind === "standard" || r.kind === "zero",
+        );
+        const fitId = solveNetwork(idRels, res.meas, res.fit.x),
+          optId = testOptions(fitId);
+        const fitEst = solveNetwork(estRels, res.meas, res.fit.x),
+          optEst = testOptions(fitEst);
+        res.carrier = new Map();
         let idx = 0;
         const tick = () => {
           if (myGen !== gen) return;
@@ -6563,11 +6701,24 @@
           while (idx < items.length && performance.now() - t0 < 24) {
             const it = items[idx++];
             if (it.kind === "m") {
-              const m = res.meas[it.k];
-              res.loo.set(
-                m.id,
-                testMeasurement(res.rels, res.meas, it.k, res.fit.x, opt),
-              );
+              const m = res.meas[it.k],
+                l = testMeasurement(res.rels, res.meas, it.k, res.fit.x, opt);
+              res.loo.set(m.id, l);
+              if (l.reachable) {
+                const c = testMeasurement(
+                  idRels,
+                  res.meas,
+                  it.k,
+                  fitId.x,
+                  optId,
+                ).reachable
+                  ? "def"
+                  : testMeasurement(estRels, res.meas, it.k, fitEst.x, optEst)
+                        .reachable
+                    ? "est"
+                    : "claim";
+                res.carrier.set(m.id, c);
+              }
             } else
               res.rt.set(
                 it.r.id,
@@ -6604,10 +6755,11 @@
             : c === "warn"
               ? "Retrouvée de justesse"
               : "Pas retrouvée";
+        const car = res.carrier.get(l.m.id);
         return {
           cls: c,
           head: `${head} : écart ${fmtPull(l.pull)}`,
-          body: `Cachée, le reste du réseau la place à ${p.value}${unitOf(n)}${p.unc ? " (" + p.unc + ")" : ""}.`,
+          body: `Cachée, le reste du réseau la place à ${p.value}${unitOf(n)}${p.unc ? " (" + p.unc + ")" : ""}.${car ? " " + CARRIER[car].plain : ""}`,
         };
       }
       function relVerdict(t, r) {
@@ -7537,6 +7689,9 @@
           document.getElementById("looFilter"),
           [
             ["reach", "Retrouvables"],
+            ["claim", "Tests des relations à l'essai"],
+            ["est", "Physique établie"],
+            ["def", "Par définition"],
             ["tension", "En tension (> 2 σ)"],
             ["all", "Toutes"],
           ],
@@ -7548,18 +7703,23 @@
         );
         let rows = res.meas
           .filter((m) => !m.base)
-          .map((m) => ({ m, l: res.loo.get(m.id) }));
+          .map((m) => ({ m, l: res.loo.get(m.id), c: res.carrier.get(m.id) }));
         if (state.looFilter === "reach")
           rows = rows.filter((x) => !x.l || x.l.reachable);
+        if (["claim", "est", "def"].includes(state.looFilter))
+          rows = rows.filter((x) => x.c === state.looFilter);
         if (state.looFilter === "tension")
           rows = rows.filter(
             (x) => x.l && x.l.reachable && Math.abs(x.l.pull) >= 2,
           );
-        let h = `<thead><tr><th>Grandeur</th><th>Mesurée</th><th>Retrouvée sans sa mesure</th><th>Écart</th><th class="col-bar"><span class="skip">Position</span></th></tr></thead><tbody>`;
+        let h = `<thead><tr><th>Grandeur</th><th>Mesurée</th><th>Retrouvée sans sa mesure</th><th>Ce que cela teste</th><th>Écart</th><th class="col-bar"><span class="skip">Position</span></th></tr></thead><tbody>`;
         if (!rows.length)
-          h += `<tr><td colspan="5" class="note">${res.busy ? "Calcul en cours…" : "Aucune mesure dans ce filtre."}</td></tr>`;
-        rows.forEach(({ m, l }) => {
+          h += `<tr><td colspan="6" class="note">${res.busy ? "Calcul en cours…" : "Aucune mesure dans ce filtre."}</td></tr>`;
+        rows.forEach(({ m, l, c }) => {
           const n = nodeOf(m.node);
+          const carrier = c
+            ? `<span class="pill ${CARRIER[c].cls}" title="${escapeHtml(CARRIER[c].plain)}">${CARRIER[c].label}</span>`
+            : `<span class="pill none">—</span>`;
           let pred = `<span class="sub">calcul…</span>`,
             pill = `<span class="pill none">…</span>`,
             bar = "";
@@ -7572,7 +7732,7 @@
             pill = `<span class="pill ${pullClass(l.pull)}">${fmtPull(l.pull)}</span>`;
             bar = pullBar(l.pull);
           }
-          h += `<tr class="click" data-go="q:${n.id}"><td>${escapeHtml(n.sym)} · ${escapeHtml(n.name)}<span class="sub">${escapeHtml(CH[n.ch].name)}</span></td><td class="num">${fmt(m.value, 5)}${escapeHtml(unitOf(n))}<span class="sub" style="font-family:var(--f-body)">${escapeHtml(m.src)}</span></td><td class="num">${pred}</td><td>${pill}</td><td class="col-bar">${bar}</td></tr>`;
+          h += `<tr class="click" data-go="q:${n.id}"><td>${escapeHtml(n.sym)} · ${escapeHtml(n.name)}<span class="sub">${escapeHtml(CH[n.ch].name)}</span></td><td class="num">${fmt(m.value, 5)}${escapeHtml(unitOf(n))}<span class="sub" style="font-family:var(--f-body)">${escapeHtml(m.src)}</span></td><td class="num">${pred}</td><td>${carrier}</td><td>${pill}</td><td class="col-bar">${bar}</td></tr>`;
         });
         document.getElementById("looTable").innerHTML = h + "</tbody>";
       }
@@ -7587,7 +7747,7 @@
       const TARGET_TEXT = {
         Snu: (v) => ({
           cls: v <= 0.0642 ? "good" : "bad",
-          text: `Les oscillations imposent au moins 0,0587 eV ; DESI DR2 et Planck limitent la somme à moins de 0,0642 eV. La valeur du réseau, ${fmt(v, 3)} eV, ${v <= 0.0642 ? "tient dans cette fenêtre étroite" : "en sort"} : les prochains relevés trancheront.`,
+          text: `Les oscillations imposent au moins 0,0587 eV ; DESI DR2 et Planck limitent la somme à moins de 0,0642 eV. La valeur du réseau, ${fmt(v, 3)} eV, ${v <= 0.0642 ? "tient dans cette fenêtre" : "en sort"}. Elle n'est qu'à ${fmt(v - 0.0587, 2)} eV du minimum : presque tout neutrino léger donnerait la même somme, et un écart aussi petit serait très difficile à mesurer. Ce qui se teste vraiment, c'est « ordre normal, et un neutrino le plus léger presque sans masse ».`,
         }),
         m1: (v) => ({
           cls: "none",
@@ -7662,6 +7822,22 @@
       );
 
       // ---------- Score ----------
+      function carrierChip(kind, label) {
+        const ids = [...res.carrier.entries()]
+          .filter(([, c]) => c === kind)
+          .map(([id]) => id);
+        const ok = ids.filter(
+          (id) => Math.abs(res.loo.get(id).pull) < 2,
+        ).length;
+        const cls = !ids.length
+          ? ""
+          : ok === ids.length
+            ? "good"
+            : ok >= ids.length - 1
+              ? "warn"
+              : "bad";
+        return `<span class="chip ${cls}" title="${escapeHtml(CARRIER[kind].plain)}">${label} <b>${ok} / ${ids.length}</b></span>`;
+      }
       function renderScore() {
         const loo = [...res.loo.values()].filter((l) => l.reachable);
         const okLoo = loo.filter((l) => Math.abs(l.pull) < 2).length;
@@ -7682,7 +7858,9 @@
         };
         const claims = [...by("claim"), ...by("failure")];
         document.getElementById("score").innerHTML =
-          `<span class="chip ${okLoo === loo.length ? "good" : "warn"}">Mesures retrouvées <b>${okLoo} / ${loo.length}</b></span>` +
+          carrierChip("claim", "Mesures qui testent une relation à l'essai") +
+          carrierChip("est", "Mesures retrouvées par la physique établie") +
+          `<span class="chip" title="${escapeHtml(CARRIER.def.plain)}">Garanties par les définitions <b>${[...res.carrier.values()].filter((c) => c === "def").length}</b></span>` +
           chip("Relations à l'essai tenues", claims) +
           chip("Zéros vérifiés", by("zero")) +
           chip("Physique établie", by("standard")) +

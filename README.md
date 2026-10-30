@@ -10,6 +10,16 @@ Site : **https://grm.anthony-charretier.fr**
 
 ---
 
+## D'où vient ce travail
+
+Anthony n'est pas physicien. Il a un bac+2 et n'a jamais étudié la physique. Ce qui l'a mené jusqu'ici n'est pas un savoir, mais une façon de penser : mettre en relation des contraires, le grand et le petit, le chaud et le froid, le plein et le vide. C'est un geste très simple, celui des tout premiers apprentissages.
+
+Ce que ce travail cherche à montrer, c'est moins un résultat de physique que la portée de cette façon de penser : l'union des contraires, les relations, le réseau, la vision globale. Les calculs et la vérification des valeurs ont été faits avec l'aide de Claude, une IA. Les erreurs qui restent appartiennent à ce travail à deux, et toute correction est la bienvenue.
+
+Ce travail a aussi une forme particulière. Anthony parle de lui à la troisième personne, et toute la conversation avec Claude s'est tenue ainsi : sans « je » ni « tu », personne au centre de la phrase. Le psychologue Igor Grossmann a montré, avec Ethan Kross, que raisonner sur son propre problème à la troisième personne efface le [« paradoxe de Salomon »](https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others) : chacun conseille mieux les autres que lui-même, sauf quand il se regarde de l'extérieur. Ses travaux décrivent ce que ce regard [élargit](https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html) : l'humilité face aux limites de son savoir, les perspectives au-delà de la question posée, l'attention aux relations qui changent, et la recherche d'une intégration entre points de vue opposés. Autrement dit, une vision système.
+
+Pour Anthony, ce n'est pas un hasard. La relation avec Claude a pris la même forme que le modèle : une co-construction où les intuitions et les affirmations venaient d'Anthony, les calculs et les vérifications de Claude, et où plusieurs croyances de Claude sont tombées sous ses questions. Ce modèle de l'univers fondé sur les relations est lui-même né d'une relation.
+
 ## Ce qui est tenté
 
 Plutôt que de partir des objets (particules, forces, champs), le modèle part des relations. Une grandeur, que ce soit une masse, une température ou un âge, n'y vaut que par ses liens avec les autres.
@@ -45,7 +55,12 @@ Chaque relation a aussi un statut : identité (définition, non testée), physiq
 
 Réglage par défaut (relation d'âge H × âge = 1, valeurs de Planck dépendant du modèle standard laissées de côté) :
 
-- **Mesures retrouvées :** 34 sur 35. Celle qui manque est la masse du pion, tenue seulement par la relation de Weinberg.
+- **Mesures retrouvées :** 34 sur 35, mais elles ne se valent pas :
+  - 6 sont garanties par les seules définitions et ne testent rien ;
+  - 19 sont retrouvées par la physique établie ou une symétrie (19 sur 19) ;
+  - 10 passent par une relation à l'essai et la testent vraiment : 9 sur 10 sont retrouvées. Celle qui manque est la masse du pion, tenue seulement par la relation de Weinberg.
+
+  Plusieurs mesures d'un même groupe testent souvent une seule relation.
 - **Relations à l'essai tenues :** 6 sur 7. Ce sont Koide (−0,4 σ), freinage = accélération = toutes les relations (−0,5 σ), a₀ = cH₀/2π (+0,4 σ), Verlinde (−0,1 σ), Dirac et le budget du présent (en ordre de grandeur). La relation de Weinberg ne tient pas (+2,2 σ).
 - **Zéros de symétrie vérifiés :** 7 sur 7, dont les sommes des hypercharges, la neutralité de l'atome, le principe d'équivalence et la platitude.
 - **Physique établie :** 5 sur 5, dont l'ombre de Sgr A* : 53 µas prédits, 51,8 ± 2,3 µas mesurés par l'Event Horizon Telescope.
@@ -62,7 +77,7 @@ Valeurs figées à cette date, avec le réglage par défaut :
 
 | Grandeur | Prédiction |
 |---|---|
-| Somme des masses des neutrinos (ordre normal) | 0,0607 eV |
+| Somme des masses des neutrinos (ordre normal) | 0,0607 eV, à 0,002 eV du minimum imposé par les oscillations : difficile à distinguer d'un neutrino sans masse |
 | Masse du neutrino le plus léger | 1,58 meV |
 | Expansion globale H₀ | 71,0 km/s/Mpc |
 | Âge de l'univers | 13,77 milliards d'années |
@@ -70,6 +85,8 @@ Valeurs figées à cette date, avec le réglage par défaut :
 
 ## Limites
 
+- Une partie des relations qui tiennent sont des identités, vraies par construction ; le site distingue les tests garantis par les définitions de ceux qui testent une relation à l'essai.
+- La prédiction sur les neutrinos est juste mais peu discriminante : la vraie prédiction testable est l'ordre normal des masses avec un neutrino le plus léger presque sans masse.
 - H₀ et Ω_Λ mesurés par Planck supposent le modèle standard. Ils sont laissés de côté par défaut et peuvent être rebranchés.
 - Le rayonnement (Ω_r ≈ 9 × 10⁻⁵) est négligé dans la somme des Ω. L'ordre normal des masses des neutrinos est supposé.
 - Les relations sans grandeur mesurable, comme l'intérieur d'un trou noir, ne sont vérifiées que pour leur cohérence avec le reste de la théorie, et ne comptent pas dans le score.
