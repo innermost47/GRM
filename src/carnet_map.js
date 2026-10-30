@@ -4,7 +4,7 @@ const CARNET_NOTES = {
   r10: { how: "failure", why: "La règle B (égalité de chemins) ne donne pas une équation unique : elle n'est pas branchée." },
   r23: { how: "formula", why: "Les intensités des forces varient avec l'énergie : il faudrait leurs équations d'évolution." },
   r25: { how: "trivial", why: "+½ − ½ = 0 : zéro par construction, sans grandeur mesurée à relier." },
-  r31: { how: "failure", why: "Un rapport d'environ 100 qui change avec l'énergie : pas une paire. Repris dans le noyau (r47)." },
+  r31: { how: "work", why: "Essai de Claude, pas une paire de la démarche : deux forces distinctes qui s'affrontent dans le noyau, sans s'annuler. Leur équilibre est repris dans le noyau (r47). La paire de l'électricité est lumière / électricité (r02, r28)." },
   r44: { how: "qualitative", why: "Les particules comme vibrations de champs : un cadre de lecture, pas une équation." },
   r45: { how: "formula", why: "Le pic du fer sort d'une formule à cinq termes (nuclear.py) ; sa limite de fission est branchée (r47)." },
   r48: { how: "qualitative", why: "Le quadrupôle faible et la forme de l'univers : une piste, pas une relation chiffrée." },
