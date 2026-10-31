@@ -249,9 +249,9 @@ The current high-performance pipeline features:
 | Evaluation Complexity                     |             $O(1)$ Delta |
 | Initial Temperature                       |                    400.0 |
 | Cooling Rate                              |                 0.999997 |
-| Initial Structural Coefficient ($\alpha$) |                     0.01 |
+| Initial Structural Coefficient ($\alpha$) |                     0.05 |
 | Perturbation Strategy                     | 4-opt Double-Bridge Kick |
-| Random Seed                               |                       42 |
+| Random Seed                               |                      123 |
 
 ---
 
@@ -259,7 +259,7 @@ The current high-performance pipeline features:
 
 | Solver / Configuration                          | Route Distance | Gap from Optimum |    Runtime |
 | :---------------------------------------------- | -------------: | ---------------: | ---------: |
-| **Pure Python GRM Solver ($O(1)$ Delta + ILS)** |  **42,549.00** |       **+1.24%** | **5.88 s** |
+| **Pure Python GRM Solver ($O(1)$ Delta + ILS)** |  **42,484.00** |       **+1.08%** | **5.94 s** |
 | LK2 Heuristic                                   |      48,017.18 |          +14.25% |     0.71 s |
 | **TSPLIB Reference Optimum**                    |  **42,029.00** |        **0.00%** |      **—** |
 
@@ -269,8 +269,8 @@ The current high-performance pipeline features:
 
 ### Key Takeaways
 
-- **Performance Gain:** Transitioning to pure native Python with $O(1)$ incremental delta evaluation reduced total execution time for 3,000,000 iterations down to **5.88 seconds**.
-- **Accuracy Improvement:** Combining candidate-list guided search, $\alpha$-decay, and 4-opt Double-Bridge perturbations brought the solution within **+1.24%** of the world optimum (42,549 vs. 42,029).
+- **Performance Gain:** Transitioning to pure native Python with $O(1)$ incremental delta evaluation reduced total execution time for 3,000,000 iterations down to **5.94 seconds**.
+- **Accuracy Improvement:** Combining candidate-list guided search, $\alpha$-decay, and 4-opt Double-Bridge perturbations brought the solution within **+1.08%** of the world optimum (42,549 vs. 42,029).
 
 ---
 
@@ -280,7 +280,7 @@ The current high-performance pipeline features:
 
 ![GRM solution for lin318](tsplib_lin318_grm_candidate.png)
 
-*Calculated Distance: 42,549.00 — Gap to optimum: +1.24% — Execution time: 5.88 s.*
+*Calculated Distance: 42,484.00 — Gap to optimum: +1.08% — Execution time: 5.94 s.*
 
 ---   
 

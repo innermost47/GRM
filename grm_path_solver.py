@@ -319,5 +319,5 @@ def plot_solution(coordinates, route, instance_name, distance, optimum, gap):
 
 if __name__ == "__main__":
     grm_delta_solver(
-        "lin318", num_iterations=3000000, initial_alpha=0.01, k_neighbors=45, seed=42
+        "lin318", num_iterations=3000000, initial_alpha=0.05, k_neighbors=45, seed=123
     )
