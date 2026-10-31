@@ -2,11 +2,12 @@ import gzip
 import shutil
 import os
 import time
-import tsplib95
+import math
+import random
 import platform
 import subprocess
 import json
-import numpy as np
+import tsplib95
 import matplotlib.pyplot as plt
 
 
@@ -77,122 +78,186 @@ def get_tsplib_instance(instance_name="lin318"):
     problem = tsplib95.load(filename)
     nodes = list(problem.get_nodes())
     num_cities = len(nodes)
-    matrix = np.zeros((num_cities, num_cities))
+
+    matrix = [[0.0] * num_cities for _ in range(num_cities)]
     for i, u in enumerate(nodes):
         for j, v in enumerate(nodes):
-            matrix[i, j] = problem.get_weight(u, v)
+            matrix[i][j] = float(problem.get_weight(u, v))
+
     coords = []
     if problem.node_coords:
         for node in nodes:
             coords.append(problem.node_coords[node])
-        coordinates = np.array(coords)
-    else:
-        coordinates = None
+    coordinates = coords if coords else None
     return problem.name, num_cities, coordinates, matrix
 
 
 def compute_candidate_lists(matrix, num_cities, k=30):
     candidate_lists = []
     for i in range(num_cities):
-        sorted_neighbors = np.argsort(matrix[i])
-        neighbors = [n for n in sorted_neighbors if n != i][:k]
+        row = matrix[i]
+        sorted_indices = sorted(range(num_cities), key=lambda x: row[x])
+        neighbors = [n for n in sorted_indices if n != i][:k]
         candidate_lists.append(neighbors)
     return candidate_lists
 
 
-def apply_2opt(route, i, j):
-    return route[:i] + route[i : j + 1][::-1] + route[j + 1 :]
+def double_bridge_kick(route):
+    n = len(route)
+    pos = sorted(random.sample(range(1, n), 4))
+    i, j, k, l = pos
+    return route[:i] + route[j:k] + route[i:j] + route[l:] + route[k:l]
 
 
-def grm_candidate_list_solver(
-    instance_name="lin318", num_iterations=1000000, alpha=0.005, k_neighbors=30, seed=42
+def grm_delta_solver(
+    instance_name="lin318",
+    num_iterations=3000000,
+    initial_alpha=0.01,
+    k_neighbors=45,
+    seed=42,
 ):
-    np.random.seed(seed)
+    random.seed(seed)
     start_time = time.time()
     name, num_cities, coordinates, matrix = get_tsplib_instance(instance_name)
     if matrix is None:
         return
+
     print(
-        f"[INFO] Initializing Candidate Lists (k={k_neighbors}) for '{instance_name}' ({num_cities} cities)..."
+        f"[INFO] Initializing Refined Fast O(1) Solver for '{instance_name}' ({num_cities} cities)..."
     )
     candidate_lists = compute_candidate_lists(matrix, num_cities, k=k_neighbors)
-    structural_baseline = np.median(matrix[matrix > 0])
-    current_route = [int(x) for x in np.random.permutation(num_cities)]
 
-    def evaluate_grm_hybrid(route):
-        route_distances = [
-            matrix[route[idx]][route[(idx + 1) % num_cities]]
-            for idx in range(num_cities)
-        ]
-        arr = np.array(route_distances, dtype=float)
-        dist_sum = np.sum(arr)
-        tension_sum = np.sum(np.abs(arr - structural_baseline))
-        return dist_sum + (alpha * tension_sum), dist_sum, tension_sum
+    all_weights = [
+        matrix[i][j] for i in range(num_cities) for j in range(num_cities) if i != j
+    ]
+    all_weights.sort()
+    structural_baseline = all_weights[len(all_weights) // 2]
 
-    current_score, current_dist, current_tension = evaluate_grm_hybrid(current_route)
+    current_route = list(range(num_cities))
+    random.shuffle(current_route)
+
+    pos = [0] * num_cities
+    for idx, node in enumerate(current_route):
+        pos[node] = idx
+
+    def compute_full_metrics(route):
+        d_sum = 0.0
+        t_sum = 0.0
+        for idx in range(num_cities):
+            u = route[idx]
+            v = route[(idx + 1) % num_cities]
+            d = matrix[u][v]
+            d_sum += d
+            t_sum += abs(d - structural_baseline)
+        return d_sum, t_sum
+
+    current_dist, current_tension = compute_full_metrics(current_route)
     best_route = list(current_route)
     best_dist = current_dist
-    best_tension = current_tension
-    best_score = current_score
+
     initial_temp = 400.0
     temperature = initial_temp
-    cooling_rate = 0.99999
-    reheat_count = 0
+    cooling_rate = 0.999997  # Refroidissement plus progressif
     stagnation_counter = 0
+    kick_count = 0
 
     print(
-        f"[INFO] Running Candidate-List Simulated Annealing ({num_iterations} iterations)..."
+        f"[INFO] Running Deep O(1) Delta-Evaluated SA ({num_iterations} iterations)..."
     )
+
     for iteration in range(num_iterations):
-        idx_a = np.random.randint(0, num_cities)
+        current_alpha = initial_alpha * (1.0 - (iteration / num_iterations))
+
+        idx_a = random.randint(0, num_cities - 1)
         city_a = current_route[idx_a]
-        candidates = candidate_lists[city_a]
-        city_b = np.random.choice(candidates)
-        try:
-            idx_b = current_route.index(city_b)
-        except ValueError:
-            continue
+        city_b = random.choice(candidate_lists[city_a])
+        idx_b = pos[city_b]
+
         if idx_a == idx_b:
             continue
-        i, j = sorted([idx_a, idx_b])
+        i, j = (idx_a, idx_b) if idx_a < idx_b else (idx_b, idx_a)
         if i == 0 and j == num_cities - 1:
             continue
-        new_route = apply_2opt(current_route, i, j)
-        new_score, new_dist, new_tension = evaluate_grm_hybrid(new_route)
-        delta = new_score - current_score
-        if delta < 0 or np.random.rand() < np.exp(-delta / max(temperature, 1e-8)):
-            current_route = list(new_route)
-            current_score = new_score
-            current_dist = new_dist
-            current_tension = new_tension
-            if current_score < best_score:
-                best_score = current_score
+
+        v_i_prev = current_route[i - 1] if i > 0 else current_route[num_cities - 1]
+        v_i = current_route[i]
+        v_j = current_route[j]
+        v_j_next = current_route[j + 1] if j < num_cities - 1 else current_route[0]
+
+        old_d = matrix[v_i_prev][v_i] + matrix[v_j][v_j_next]
+        new_d = matrix[v_i_prev][v_j] + matrix[v_i][v_j_next]
+        delta_dist = new_d - old_d
+
+        old_t = abs(matrix[v_i_prev][v_i] - structural_baseline) + abs(
+            matrix[v_j][v_j_next] - structural_baseline
+        )
+        new_t = abs(matrix[v_i_prev][v_j] - structural_baseline) + abs(
+            matrix[v_i][v_j_next] - structural_baseline
+        )
+        delta_tension = new_t - old_t
+
+        delta_score = delta_dist + (current_alpha * delta_tension)
+
+        if delta_score < 0 or random.random() < math.exp(
+            -delta_score / max(temperature, 1e-8)
+        ):
+            current_route[i : j + 1] = reversed(current_route[i : j + 1])
+            for idx in range(i, j + 1):
+                pos[current_route[idx]] = idx
+
+            current_dist += delta_dist
+            current_tension += delta_tension
+
+            if current_dist < best_dist:
                 best_dist = current_dist
-                best_tension = current_tension
-                best_route = list(new_route)
+                best_route = list(current_route)
                 stagnation_counter = 0
             else:
                 stagnation_counter += 1
         else:
             stagnation_counter += 1
+
         temperature *= cooling_rate
-        if stagnation_counter > 40000:
+
+        # Seuil de stagnation élargi pour laisser le temps d'explorer
+        if stagnation_counter > 75000:
+            current_route = double_bridge_kick(best_route)
+            for idx, node in enumerate(current_route):
+                pos[node] = idx
+            current_dist, current_tension = compute_full_metrics(current_route)
             temperature = initial_temp * 0.3
             stagnation_counter = 0
-            reheat_count += 1
+            kick_count += 1
 
-    print("[INFO] Executing safe final local 2-opt polish...")
+    print("[INFO] Executing safe final 2-opt local search polish...")
     improved = True
-    while improved:
+    polish_iterations = 0
+    max_polish_iterations = 50000
+
+    while improved and polish_iterations < max_polish_iterations:
         improved = False
+        polish_iterations += 1
         for i in range(num_cities - 2):
             for j in range(i + 2, num_cities):
-                test_route = apply_2opt(best_route, i, j)
-                _, test_dist, _ = evaluate_grm_hybrid(test_route)
-                if test_dist < best_dist:
-                    best_route = list(test_route)
-                    best_dist = test_dist
+                if i == 0 and j == num_cities - 1:
+                    continue
+
+                v_i_prev = best_route[i - 1] if i > 0 else best_route[num_cities - 1]
+                v_i = best_route[i]
+                v_j = best_route[j]
+                v_j_next = best_route[j + 1] if j < num_cities - 1 else best_route[0]
+
+                delta = (matrix[v_i_prev][v_j] + matrix[v_i][v_j_next]) - (
+                    matrix[v_i_prev][v_i] + matrix[v_j][v_j_next]
+                )
+
+                if delta < -1e-6:
+                    best_route[i : j + 1] = reversed(best_route[i : j + 1])
+                    best_dist += delta
                     improved = True
+                    break
+            if improved:
+                break
 
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -211,18 +276,18 @@ def grm_candidate_list_solver(
 
     specs = get_machine_specs()
     print(f"\n==================================================================")
-    print(f"               PERFORMANCE & HARDWARE BENCHMARK REPORT             ")
+    print(f"            PERFORMANCE & HARDWARE BENCHMARK REPORT              ")
     print(f"==================================================================")
     print(f"--- Machine Specs ---")
     for k, v in specs.items():
         print(f"  {k}: {v}")
     print(f"\n==================================================================")
-    print(f"       SAFE CANDIDATE LISTS & 2-OPT POLISH BENCHMARK REPORT       ")
+    print(f"      REFINED FAST O(1) DELTA PRECISION BENCHMARK REPORT          ")
     print(f"==================================================================")
     print(f"Instance             : {instance_name}")
     print(f"Number of cities     : {num_cities}")
     print(f"Computation time     : {elapsed_time:.2f} seconds")
-    print(f"Re-heatings          : {reheat_count}")
+    print(f"Double-Bridge Kicks  : {kick_count}")
     print(f"Calculated distance  : {best_dist:.2f}")
     if official_optimum:
         print(f"World optimum        : {official_optimum}")
@@ -232,17 +297,16 @@ def grm_candidate_list_solver(
 
 def plot_solution(coordinates, route, instance_name, distance, optimum, gap):
     plt.figure(figsize=(10, 10))
-    route_coords = coordinates[route + [route[0]]]
-    plt.plot(
-        route_coords[:, 0],
-        route_coords[:, 1],
-        "teal",
-        linewidth=0.8,
-        alpha=0.8,
-        label="GRM Trace",
-    )
-    plt.scatter(coordinates[:, 0], coordinates[:, 1], color="darkred", s=12, zorder=5)
-    title_str = f"TSPLIB Candidate Lists - {instance_name}\nDistance: {distance:.2f}"
+    route_indices = route + [route[0]]
+    rx = [coordinates[idx][0] for idx in route_indices]
+    ry = [coordinates[idx][1] for idx in route_indices]
+    cx = [coords[0] for coords in coordinates]
+    cy = [coords[1] for coords in coordinates]
+
+    plt.plot(rx, ry, "teal", linewidth=0.8, alpha=0.8, label="GRM Trace")
+    plt.scatter(cx, cy, color="darkred", s=12, zorder=5)
+
+    title_str = f"TSPLIB Refined Fast O(1) - {instance_name}\nDistance: {distance:.2f}"
     if optimum:
         title_str += f" | Optimum: {optimum} (Gap: {gap:+.2f}%)"
     plt.title(title_str, fontsize=12)
@@ -254,6 +318,6 @@ def plot_solution(coordinates, route, instance_name, distance, optimum, gap):
 
 
 if __name__ == "__main__":
-    grm_candidate_list_solver(
-        "lin318", num_iterations=1000000, alpha=0.005, k_neighbors=30
+    grm_delta_solver(
+        "lin318", num_iterations=3000000, initial_alpha=0.01, k_neighbors=45, seed=42
     )
