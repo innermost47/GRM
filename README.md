@@ -129,6 +129,127 @@ This script is an open computational laboratory, not a dogmatic assertion. It tr
 
 ---
 
+## GRM Path Solver — Relational Optimization Benchmark
+
+### Objective
+
+The GRM path solver explores whether a relational optimization strategy can produce competitive solutions to combinatorial path problems.
+
+The first benchmark uses the **TSPLIB `lin318`** instance, consisting of 318 cities.
+
+The published reference optimum is **42,029**.
+
+The implementation is available in:
+- `grm_path_solver.py` — GRM-based hybrid optimization solver.
+- `lk_path_solver.py` — Lin-Kernighan-based comparison implementation.
+
+### GRM optimization strategy
+
+The GRM solver combines distance minimization with a structural balance term.
+
+Its objective function is:
+
+\[
+S = D + \alpha T
+\]
+
+Where:
+
+- \(D\) is the total length of the route.
+- \(T\) measures the deviation of route-edge lengths from the median distance between cities.
+- \(\alpha\) controls the contribution of this structural term.
+
+The purpose of this approach is to investigate whether a route can be improved by considering both its total length and the distribution of its connections.
+
+The current optimization pipeline uses:
+
+1. Nearest-neighbor candidate lists to restrict the search space.
+2. Simulated annealing to explore alternative routes.
+3. A reheating mechanism to help escape stagnation.
+4. A final 2-opt local search that directly minimizes total route distance.
+
+### Current benchmark configuration
+
+| Parameter                           |                      Value |
+| ----------------------------------- | -------------------------: |
+| Instance                            |                   `lin318` |
+| Number of cities                    |                        318 |
+| Candidate neighbors                 |                         30 |
+| Simulated annealing iterations      |                  1,000,000 |
+| Initial temperature                 |                        400 |
+| Cooling rate                        |                    0.99999 |
+| Reheating after stagnation          |          40,000 iterations |
+| Reheating temperature               | 30% of initial temperature |
+| Structural coefficient (\(\alpha\)) |                      0.005 |
+| Random seed                         |                         42 |
+
+### Results obtained so far
+
+| Solver / Run                             | Route distance | Gap from optimum | Runtime |
+| ---------------------------------------- | -------------: | ---------------: | ------: |
+| GRM candidate-list + simulated annealing |         43,490 |           +3.48% | 71.29 s |
+| GRM repeated run, same seed              |         43,490 |           +3.48% | 71.99 s |
+| LK2 heuristic                            |      48,017.18 |          +14.25% |  0.71 s |
+| TSPLIB reference optimum                 |     **42,029** |        **0.00%** |       — |
+
+**Important comparison note:** The LK2 result was evaluated using raw Euclidean coordinates, whereas the GRM result uses the TSPLIB distance convention. These figures are therefore not a strictly controlled head-to-head comparison. A common distance convention is required before drawing conclusions about relative solver performance.
+
+### Interpretation
+
+The current GRM configuration reduced the route length from 45,691 to 43,490.
+
+This represents an improvement of 2,201 distance units and reduced the gap from the reference optimum from 8.71% to 3.48%.
+
+The result demonstrates that the current hybrid strategy can find a substantially shorter route on this benchmark than the earlier GRM implementation.
+
+The final 2-opt stage evaluates route distance directly, without the structural tension term.
+
+### Current limitations
+
+**Fixed random seed**
+
+The solver currently uses a fixed random seed (`42`).
+
+Repeated executions with this seed confirm reproducibility, but they do not measure performance variability across independent runs.
+
+Multi-seed benchmarking is still required to assess the solver's robustness, average performance and sensitivity to initialization.
+
+**Computational efficiency**
+
+The current implementation recalculates substantial portions of the route evaluation during candidate exploration. Incremental 2-opt evaluation and position indexing are potential optimization paths.
+
+**Benchmark comparability**
+
+The LK2 and GRM results do not yet use exactly the same distance convention. A controlled comparison remains necessary.
+
+### Next steps
+
+- Implement incremental 2-opt evaluation.
+- Reduce the computational cost of candidate evaluation.
+- Run independent tests across multiple random seeds.
+- Compare all solvers using the same distance convention.
+- Benchmark against established implementations such as LKH-3 and Concorde.
+
+The current results are preliminary computational experiments. They establish a reproducible starting point for evaluating the GRM optimization strategy, not yet a general performance claim.
+
+### Route visualizations
+
+The following figures show the routes produced by the two solvers on the TSPLIB `lin318` instance.
+
+**GRM — Candidate Lists + Simulated Annealing**
+
+![GRM solution for lin318](tsplib_lin318_grm_candidate.png)
+
+Distance: 43,490 — Gap from optimum: +3.48%.
+
+**Lin-Kernighan 2 (LK2)**
+
+![LK2 solution for lin318](tsplib_lin318_lk2.png)
+
+Distance: 48,017.18 — Gap from optimum: +14.25%.
+
+---   
+
 ## Limitations
 
 - Several relations that hold are identities true by definition; the documentation strictly distinguishes definition-based validations from genuine trial relations.
