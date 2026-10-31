@@ -153,10 +153,10 @@ $$S = D + \alpha T$$
 
 Where:
 
-- \(D\) is the total length of the route.
-- \(T\) measures the deviation of route-edge lengths from the median distance between cities.
-- \(\alpha\) controls the contribution of this structural term.
-
+- $D$ is the total length of the route.
+- $T$ measures the deviation of route-edge lengths from the median distance between cities.
+- $\alpha$ controls the contribution of this structural term.
+  
 The purpose of this approach is to investigate whether a route can be improved by considering both its total length and the distribution of its connections.
 
 The current optimization pipeline uses:
