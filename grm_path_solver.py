@@ -261,7 +261,10 @@ def grm_delta_solver(
 
     end_time = time.time()
     elapsed_time = end_time - start_time
-    known_optima = {"lin318": 42029}
+    known_optima = {
+        "lin318": 42029,
+        "pcb1173": 56892,
+    }
     official_optimum = known_optima.get(instance_name, None)
     gap = (
         ((best_dist - official_optimum) / official_optimum) * 100
