@@ -102,13 +102,6 @@ def compute_candidate_lists(matrix, num_cities, k=30):
     return candidate_lists
 
 
-def double_bridge_kick(route):
-    n = len(route)
-    pos = sorted(random.sample(range(1, n), 4))
-    i, j, k, l = pos
-    return route[:i] + route[j:k] + route[i:j] + route[l:] + route[k:l]
-
-
 def grm_delta_solver(
     instance_name="lin318",
     num_iterations=3000000,
@@ -157,9 +150,8 @@ def grm_delta_solver(
 
     initial_temp = 400.0
     temperature = initial_temp
-    cooling_rate = 0.999997  # Refroidissement plus progressif
+    cooling_rate = 0.999997
     stagnation_counter = 0
-    kick_count = 0
 
     print(
         f"[INFO] Running Deep O(1) Delta-Evaluated SA ({num_iterations} iterations)..."
@@ -219,46 +211,6 @@ def grm_delta_solver(
 
         temperature *= cooling_rate
 
-        # Seuil de stagnation élargi pour laisser le temps d'explorer
-        if stagnation_counter > 75000:
-            current_route = double_bridge_kick(best_route)
-            for idx, node in enumerate(current_route):
-                pos[node] = idx
-            current_dist, current_tension = compute_full_metrics(current_route)
-            temperature = initial_temp * 0.3
-            stagnation_counter = 0
-            kick_count += 1
-
-    print("[INFO] Executing safe final 2-opt local search polish...")
-    improved = True
-    polish_iterations = 0
-    max_polish_iterations = 50000
-
-    while improved and polish_iterations < max_polish_iterations:
-        improved = False
-        polish_iterations += 1
-        for i in range(num_cities - 2):
-            for j in range(i + 2, num_cities):
-                if i == 0 and j == num_cities - 1:
-                    continue
-
-                v_i_prev = best_route[i - 1] if i > 0 else best_route[num_cities - 1]
-                v_i = best_route[i]
-                v_j = best_route[j]
-                v_j_next = best_route[j + 1] if j < num_cities - 1 else best_route[0]
-
-                delta = (matrix[v_i_prev][v_j] + matrix[v_i][v_j_next]) - (
-                    matrix[v_i_prev][v_i] + matrix[v_j][v_j_next]
-                )
-
-                if delta < -1e-6:
-                    best_route[i : j + 1] = reversed(best_route[i : j + 1])
-                    best_dist += delta
-                    improved = True
-                    break
-            if improved:
-                break
-
     end_time = time.time()
     elapsed_time = end_time - start_time
     known_optima = {
@@ -290,7 +242,6 @@ def grm_delta_solver(
     print(f"Instance             : {instance_name}")
     print(f"Number of cities     : {num_cities}")
     print(f"Computation time     : {elapsed_time:.2f} seconds")
-    print(f"Double-Bridge Kicks  : {kick_count}")
     print(f"Calculated distance  : {best_dist:.2f}")
     if official_optimum:
         print(f"World optimum        : {official_optimum}")
