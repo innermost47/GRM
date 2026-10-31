@@ -1,47 +1,113 @@
 # Global Relational Model (GRM)
 
-**An essay on a model of the universe based on relations.**
+**An essay on a relational model of the universe and a method for exploring complex systems.**
 
-The model links 148 physical quantities through 119 relations, from the Planck scale to black holes. It subjects itself to a single empirical ordeal: every measurement is hidden in turn, and the rest of the network must reconstruct it.
+The Global Relational Model (GRM) currently connects 148 physical quantities through 119 relations, spanning scales from the Planck length to black holes. Its physical framework is subjected to an empirical test: each measurement is hidden in turn, and the remaining network must reconstruct it.
 
-Website: **https://grm.anthony-charretier.fr**
-
----
-
-## Where this work comes from
-
-Anthony is not a physicist. He holds an associate degree (bac+2) and has never formally studied physics. What led him here is not academic knowledge, but a mode of perception: putting opposites into relation—the large and the small, the hot and the cold, the full and the empty. It is a fundamental gesture, akin to the very earliest stages of learning.
-
-What this work seeks to demonstrate is less an isolated result of physics than the scope of this way of thinking: the union of opposites, relations, networks, and a global systems perspective. Calculations, cross-verifications, and computational modeling were carried out in collaboration with artificial intelligence (Claude and Gemini). The remaining errors belong to this joint endeavor, and any correction or refutation is welcome.
-
-This work also possesses a singular form. Anthony speaks of himself strictly in the third person, and all scientific exchanges were conducted in this manner: without "I" or "you", placing no ego-centric observer at the center of the sentence. 
-
-For Anthony, this linguistic discipline was the direct catalyst of the paradigm shift. Mathematics and natural language are two expressions of the exact same phenomenon: they are formalized grammars through which the mind models reality. Mathematics is a language of numbers, just as speech is a language of words. Consequently, shifting one's viewpoint within natural language fundamentally alters one's viewpoint within mathematics:
-- Classical grammar (*Subject $\to$ Verb $\to$ Object*) conditions the mind to treat nouns (isolated particles, substantive objects) as primary entities, relegating interactions (verbs) to secondary occurrences.
-- By shifting to the third person ("he") and removing the self-referential center ("I"), Anthony created a cognitive void. This de-centering of language immediately projected itself into mathematics: the coordinate system ceased to follow isolated individual particles ($x_i$) and shifted entirely to the interval between them—the relational field ($\Delta\rho$, $V_{\text{eff}}$, $P_{\text{eff}}$).
-
-Psychologist Igor Grossmann, alongside Ethan Kross, demonstrated that reasoning about personal problems in the third person dissolves [Solomon's paradox](https://news.umich.edu/how-to-give-ourselves-advice-as-good-as-we-give-others): individuals advise others far better than themselves, unless they observe their own situation from an allocentric perspective. Their research describes what this external vantage point [cultivates](https://www.psychologicalscience.org/publications/observer/obsonline/the-factors-that-foster-wise-reasoning.html): intellectual humility regarding the limits of one's knowledge, perspectives beyond the immediate question, attention to evolving relations, and the integration of opposing viewpoints—in other words, systemic thought.
-
-For Anthony, this is not a coincidence. The collaborative process with AI mirrored the architecture of the model: a co-construction where conceptual intuitions and core assertions originated from Anthony, while computational resolutions, mathematical formulations, and empirical verifications were handled by the AI, challenging and dismantling several preconceived assumptions along the way. This relational model of the universe was itself born of a relation.
+Website: **[https://grm.anthony-charretier.fr](https://grm.anthony-charretier.fr)**
 
 ---
 
-## What is attempted
+## The Founding Principle: Absolute, Relative, and Minimum Friction
 
-Rather than taking discrete objects (particles, forces, fields) as fundamental, the model takes relations as primary. A physical quantity—whether mass, temperature, or cosmic age—holds meaning only through its links to others.
+The GRM is built on a central hypothesis: **any problem can be approached through the distinction between an absolute component and a relative component.**
 
-The framework, designed by Anthony, does not seek to explain *why* things exist as they are. It puts already established physical quantities into direct relation and observes what this relation structurally reveals.
+The absolute component defines the reference, invariant, boundary, or fundamental constraint of a system.
+
+The relative component describes what varies, transforms, interacts, or depends on the relationships within that system.
+
+Neither component is sufficient on its own. Their interaction produces a relational tension. The GRM seeks to identify the relationship through which this tension tends toward zero.
+
+This zero does not necessarily mean that all quantities vanish or that activity ceases. It represents the point of minimum friction: the condition in which the system reaches its most balanced configuration under the constraints being studied.
+
+In this perspective, equilibrium is not imposed from outside. It emerges from the interactions and transformations of the system itself.
+
+The guiding question is therefore:
+
+*What is absolute, what is relative, and which relationship drives their interaction toward minimum friction?*
+
+### From philosophy to mathematical construction
+
+The GRM translates this hypothesis into a practical method:
+
+1. **Identify the absolute:** determine the reference quantities, invariants, boundaries, or constraints of the problem.
+2. **Identify the relative:** determine the variables, transformations, and interactions that can change.
+3. **Define the relational tension:** construct a measurable relationship expressing the discrepancy, imbalance, or friction between the components.
+4. **Search for zero:** identify the conditions under which this relationship approaches zero or reaches a defined minimum.
+5. **Test the result:** hide measurements, modify parameters, perturb the system, or compare predictions against independent references.
+
+The mathematical expression of relational tension depends on the domain. It may take the form of a residual, a difference, a conserved quantity, a product constraint, an energy function, or an optimization objective.
+
+There is no requirement that every field use the same equation. The common principle lies in identifying and testing relationships.
+
+---
+
+## Where This Work Comes From
+
+Anthony is not a physicist. He holds an associate degree (bac+2) and has never formally studied physics.
+
+The starting point was a simple intellectual approach: putting opposites into relation—the large and the small, the hot and the cold, the full and the empty, the beginning and the end.
+
+Rather than treating these as isolated concepts, the GRM explores what becomes visible when they are considered together.
+
+The work seeks to investigate the scope of this relational approach: the union of opposites, networks of interdependent quantities, and the possibility that global behavior can emerge from local relationships.
+
+Calculations, cross-verifications, and computational modeling were carried out in collaboration with artificial intelligence (Claude, Gemini, and other tools). Conceptual intuitions and the central hypotheses originated with Anthony, while mathematical formalization, computational implementation, and verification were developed collaboratively. Corrections, criticism, and refutations are welcome.
+
+---
+
+## What Is Attempted
+
+Rather than taking discrete objects (particles, forces, fields) as the only fundamental starting point, the GRM investigates whether relations can provide a common framework for describing systems.
+
+A physical quantity—whether mass, temperature, or cosmic age—can be studied through its connections to other quantities.
+
+The framework does not seek to explain *why* things exist as they are. It puts established physical quantities into direct relation and investigates what these relationships reveal about the structure and behavior of a system.
+
+The same methodological principle is also being explored beyond fundamental physics, including condensed matter and combinatorial optimization.
+
+Each field retains its own mathematical definitions, reference data, and validation criteria. A result in one domain does not automatically validate the framework in another.
+
+The objective is to determine whether the same relational approach can produce useful, measurable, and reproducible results across different domains.
 
 ---
 
 ## The Method
 
-1. **A pair of opposites**, defined with their numerical values.
-2. **Their relation equals zero**: their sum vanishes, or their product remains constant (a vanishing sum in logarithmic space). Otherwise, it does not constitute a true pair.
-3. **All relations bound together**: sharing physical quantities, they form an interdependent network where each value is constrained by multiple pathways.
-4. **Hiding to test (Leave-one-out cross-validation)**: every measurement is concealed, and every relation removed in turn. What the remainder of the network reconstructs holds firm; the deviation is counted in standard uncertainties ($\sigma$).
+The physical network currently follows four main construction and validation principles:
+
+1. **Pairs of opposites:** identify two quantities or states that can be meaningfully placed in relation, with their numerical values.
+2. **A zero relation:** define a relationship whose balance condition is zero. This may be a vanishing sum or a constant product, equivalent to a vanishing sum in logarithmic space. The mathematical definition must be explicit; not every arbitrary pair constitutes a valid relational pair.
+3. **An interconnected network:** shared physical quantities link the relations together, forming an interdependent structure in which each value is constrained by multiple pathways.
+4. **Hiding to test (Leave-one-out validation):** conceal each measurement in turn and remove each relation in turn. The remaining network attempts to reconstruct the hidden value. Deviations are evaluated in standard uncertainties (\(\sigma\)).
+
+The distinction between established physical relations, mathematical identities, and exploratory hypotheses is maintained. Failed tests remain visible rather than being silently discarded.
 
 ---
+
+## A Cross-Disciplinary Research Approach
+
+The GRM is not limited to a single application. Its central hypothesis is being explored through different computational and scientific problems.
+
+- **Fundamental physics:** connecting physical quantities through a network of mathematical relationships and testing their consistency against measurements.
+- **Condensed matter:** exploring relationships between physical properties, interactions, and different scales of description.
+- **Combinatorial optimization:** applying relational constraints to route construction and searching for configurations that minimize global cost and structural tension.
+
+These experiments are independent tests of the same methodological intuition. Their results must be assessed using the standards and reference data of their respective fields.
+
+---
+
+## Scientific Position
+
+The GRM is an ongoing research framework, not an established universal theory.
+
+Its propositions are intended to be translated into explicit mathematical relationships and confronted with measurable results.
+
+A relationship is not validated simply because it can be written down or fitted to existing data. Its value depends on its predictive capacity, independent verification, sensitivity to assumptions, and ability to survive attempts at falsification.
+
+The aim is not to replace established science by assertion, but to investigate whether a common relational construction can reveal useful structures across different domains.
+
+---   
 
 ## How the Model Computes
 
