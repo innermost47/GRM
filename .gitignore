@@ -9,3 +9,4 @@ grm_*
 *.gz
 !tsplib_lin318_lk2.png
 !tsplib_lin318_grm_candidate.png
+!grm_path_solver.py
