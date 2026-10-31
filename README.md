@@ -98,7 +98,8 @@ Parameters frozen on October 30, 2026, under default network settings:
 
 ## Condensed Matter Numerical Test Bench (`grm.py`)
 
-This Python module tests the relational hypothesis at the scale of quantum and condensed matter physics. Rather than seeking macroscopic physical properties inside isolated constituent atoms, it measures what emerges directly within their interaction: the effective relational volume ($V_{\text{eff}}$) and the mechanical equilibrium point where relational pressure strictly vanishes:
+This Python module tests the relational hypothesis at the scale of quantum and condensed matter physics. Rather than seeking macroscopic physical properties inside isolated constituent atoms, it measures what emerges directly within their interaction: the effective relational volume ($V_{\text{eff}}$) and the mechanical equilibrium point where relational pressure strictly vanishes:  
+
 $$P_{\text{eff}} = -\frac{dE}{dV_{\text{eff}}} = 0$$
 
 From this microscopic relational equilibrium, the script deduces tangible macroscopic properties without empirical parameter fitting:
