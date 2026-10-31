@@ -149,7 +149,7 @@ The GRM solver combines distance minimization with a structural balance term.
 
 Its objective function is:
 
-\[S = D + \alpha T\]
+$$S = D + \alpha T$$
 
 Where:
 
