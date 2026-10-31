@@ -262,26 +262,26 @@ Distance: 48,017.18 — Gap from optimum: +14.25%.
 
 ```
 src/
-  model.js        Physical quantities, relations, measurements, and solver (DOM-independent, Node-ready)
-  ui.js           Interactive interface
-  template.html   Webpage, layout, typography, and descriptive documentation
-  carnet_map.js   Processing engine for conceptual notes
-  sources.js      Curated scientific references displayed on the site
+  model.js                        Physical quantities, relations, measurements, and solver (DOM-independent, Node-ready)
+  ui.js                           Interactive interface
+  template.html                   Webpage, layout, typography, and descriptive documentation
+  carnet_map.js                   Processing engine for conceptual notes
+  sources.js                      Curated scientific references displayed on the site
 data/
-  carnet.json     74 conceptual pair definitions
-  layout.json     Precalculated network graph coordinates
+  carnet.json                     74 conceptual pair definitions
+  layout.json                     Precalculated network graph coordinates
 scripts/
-  layout.js       Recalculates the relational network map
-  build.py        Compiles site/index.html (standalone, serverless deployment)
-  check.js        Executes the two leave-one-out validation suites in command line
-  chance_test.js  Statistical significance testing: random universes and surrogate formulas
-  make_images.py  Regenerates favicon and social media metadata previews
-grm.py            Condensed matter relational test bench (Full CI, quantum-to-macro multi-scale engine)
-grm_path_solver.py GRM-based path optimization solver
-lk_path_solver.py  Lin-Kernighan 2 (LK2) comparison solver
-tsplib_lin318_grm_candidate.png GRM route visualization for TSPLIB lin318
-tsplib_lin318_lk2.png           LK2 route visualization for TSPLIB lin318
-site/             Production-ready site distribution (index.html, metadata, sitemaps)
+  layout.js                       Recalculates the relational network map
+  build.py                        Compiles site/index.html (standalone, serverless deployment)
+  check.js                        Executes the two leave-one-out validation suites in command line
+  chance_test.js                  Statistical significance testing: random universes and surrogate formulas
+  make_images.py                  Regenerates favicon and social media metadata previews
+grm.py                            Condensed matter relational test bench (Full CI, quantum-to-macro multi-scale engine)
+grm_path_solver.py                GRM-based path optimization solver
+lk_path_solver.py                 Lin-Kernighan 2 (LK2) comparison solver
+tsplib_lin318_grm_candidate.png   GRM route visualization for TSPLIB lin318
+tsplib_lin318_lk2.png             LK2 route visualization for TSPLIB lin318
+site/                             Production-ready site distribution (index.html, metadata, sitemaps)
 ```
 
 ---
