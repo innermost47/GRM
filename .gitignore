@@ -7,7 +7,7 @@ __pycache__/
 grm_*
 *.png
 *.gz
-!tsplib_lin318_lk2.png
-!tsplib_lin318_grm_candidate.png
-!grm_path_solver.py
 *.csv
+*.exe*
+grm.py
+lk_path_solver.py

@@ -85,18 +85,6 @@ The distinction between established physical relations, mathematical identities,
 
 ---
 
-## A Cross-Disciplinary Research Approach
-
-The GRM is not limited to a single application. Its central hypothesis is being explored through different computational and scientific problems.
-
-- **Fundamental physics:** connecting physical quantities through a network of mathematical relationships and testing their consistency against measurements.
-- **Condensed matter:** exploring relationships between physical properties, interactions, and different scales of description.
-- **Combinatorial optimization:** applying relational constraints to route construction and searching for configurations that minimize global cost and structural tension.
-
-These experiments are independent tests of the same methodological intuition. Their results must be assessed using the standards and reference data of their respective fields.
-
----
-
 ## Scientific Position
 
 The GRM is an ongoing research framework, not an established universal theory.
@@ -160,128 +148,6 @@ Parameters frozen on October 30, 2026, under default network settings:
 | **Heavy seesaw neutrino scale**               | **$1.2 \times 10^{15}\text{ GeV}$** | Grand Unification energy threshold                 |
 | **Dark energy equation of state $w_0$**       | **$-0.89$**                         | Dynamical dark energy (DESI DR2: $-0.84 \pm 0.05$) |
 
----
-
-## Condensed Matter Numerical Test Bench (`grm.py`)
-
-This Python module tests the relational hypothesis at the scale of quantum and condensed matter physics. Rather than seeking macroscopic physical properties inside isolated constituent atoms, it measures what emerges directly within their interaction: the effective relational volume ($V_{\text{eff}}$) and the mechanical equilibrium point where relational pressure strictly vanishes:  
-
-$$P_{\text{eff}} = -\frac{dE}{dV_{\text{eff}}} = 0$$
-
-From this microscopic relational equilibrium, the script deduces tangible macroscopic properties without empirical parameter fitting:
-- Macroscopic mass density ($\rho$, in $\text{g/cm}^3$);
-- Isothermal/isentropic Bulk Modulus ($K$, in $\text{GPa}$);
-- Acoustic propagation speed ($c$, in $\text{m/s}$).
-
-The engine was developed and verified in collaboration with Gemini. It confronts relational predictions against certified laboratory benchmarks (NIST, CRC Handbook, IAPWS) across **17 pure substances** representing the major bonding archetypes of matter:
-1. **Hydrogen-bonded liquids:** Water ($H_2O$), Ethanol, Glycerol;
-2. **Covalent $sp^3$ crystals:** Diamond ($C$), Silicon ($Si$), Silicon Carbide ($SiC$);
-3. **Metallic lattices:** Copper ($Cu$), Aluminum ($Al$), Iron ($\alpha$-Fe), Gold ($Au$), Lead ($Pb$);
-4. **Ionic networks:** Table salt ($NaCl$), Magnesia ($MgO$), Fluorite ($CaF_2$);
-5. **Van der Waals cryogenic fluids:** Liquid Argon ($Ar$), Liquid Nitrogen ($N_2$), Liquid Xenon ($Xe$).
-
-### Running the Test Bench
-
-```sh
-python grm.py
-```
-
-The script outputs a comprehensive verification table displaying calculated values, experimental references, relative percentage errors, and a strict acceptance verdict:
-$$\mathbf{51\text{ out of }51\text{ PHYSICAL OBSERVABLES VALIDATED (100.0\% SUCCESS)}}$$
-
-### Refutation and Corrections
-
-This script is an open computational laboratory, not a dogmatic assertion. It translates Anthony's relational principles into exact quantum and continuum equations. Critiques regarding coordination numbers, lattice geometries, or demonstrations of failure on other materials are welcomed via GitHub issues and pull requests.
-
----
-
-## GRM Path Solver — Relational Optimization Benchmark
-
-### Objective
-
-The GRM path solver explores whether a relational optimization strategy can produce competitive solutions to combinatorial path problems.
-
-The primary benchmark uses the **TSPLIB `lin318`** instance, consisting of 318 cities.
-
-The published reference optimum is **42,029**.
-
-The implementation is written in **pure native Python** (without external numerical libraries like NumPy) to ensure fast list access, minimal dependency overhead, and efficient execution.
-
-The codebase includes:
-- `grm_path_solver.py` — Pure Python GRM-based hybrid solver ($O(1)$ delta evaluation, Simulated Annealing, Double-Bridge kicks).
-- `lk_path_solver.py` — Lin-Kernighan-based comparison implementation.
-
----
-
-### GRM Optimization Strategy
-
-The GRM solver combines distance minimization with a structural balance term.
-
-Its objective function is:
-
-$$S = D + \alpha T$$
-
-Where:
-- $D$ is the total length of the route.
-- $T$ measures the deviation of route-edge lengths from the median distance between cities.
-- $\alpha$ controls the contribution of this structural term (decaying dynamically over time).
-
-The current high-performance pipeline features:
-
-1. **Pure Python Data Structures:** Built using native lists, index mapping dictionaries/arrays, and built-in `math` and `random` modules for fast execution.
-2. **$O(1)$ Delta-Evaluation:** Replaces full-route recalculations ($O(N)$) by computing only edge differences during 2-opt swaps.
-3. **Candidate Lists:** Nearest-neighbor lists ($k=45$) to constrain candidate selection.
-4. **Iterated Local Search (ILS) & Double-Bridge Kicks:** A 4-opt perturbation mechanism to escape deep local minima during stagnation.
-5. **Linear $\alpha$-Decay:** Dynamic cooling of the structural coefficient $\alpha \to 0$ to prioritize structural exploration early and pure geometric distance refinement late.
-6. **Final Local Search Polish:** A deterministic 2-opt local search pass for final route smoothing.
-
----
-
-### Current Benchmark Configuration
-
-| Parameter                                 |                    Value |
-| :---------------------------------------- | -----------------------: |
-| Implementation Environment                |       Pure Native Python |
-| Instance                                  |                 `lin318` |
-| Number of cities                          |                      318 |
-| Candidate neighbors ($k$)                 |                       45 |
-| Simulated annealing iterations            |                3,000,000 |
-| Evaluation Complexity                     |             $O(1)$ Delta |
-| Initial Temperature                       |                    400.0 |
-| Cooling Rate                              |                 0.999997 |
-| Initial Structural Coefficient ($\alpha$) |                     0.05 |
-| Perturbation Strategy                     | 4-opt Double-Bridge Kick |
-| Random Seed                               |                      123 |
-
----
-
-### Results
-
-| Solver / Configuration                          | Route Distance | Gap from Optimum |    Runtime |
-| :---------------------------------------------- | -------------: | ---------------: | ---------: |
-| **Pure Python GRM Solver ($O(1)$ Delta + ILS)** |  **42,484.00** |       **+1.08%** | **5.94 s** |
-| LK2 Heuristic                                   |      48,017.18 |          +14.25% |     0.71 s |
-| **TSPLIB Reference Optimum**                    |  **42,029.00** |        **0.00%** |      **—** |
-
-> **Note on comparison:** The LK2 result was evaluated using raw Euclidean coordinates, whereas the GRM result uses the TSPLIB distance matrix convention.
-
----
-
-### Key Takeaways
-
-- **Performance Gain:** Transitioning to pure native Python with $O(1)$ incremental delta evaluation reduced total execution time for 3,000,000 iterations down to **5.94 seconds**.
-- **Accuracy Improvement:** Combining candidate-list guided search, $\alpha$-decay, and 4-opt Double-Bridge perturbations brought the solution within **+1.08%** of the world optimum (42,549 vs. 42,029).
-
----
-
-### Route Visualizations
-
-**GRM — Pure Python $O(1)$ Delta + Simulated Annealing**
-
-![GRM solution for lin318](tsplib_lin318_grm_candidate.png)
-
-*Calculated Distance: 42,484.00 — Gap to optimum: +1.08% — Execution time: 5.94 s.*
-
 ---   
 
 ## Limitations
@@ -312,11 +178,6 @@ scripts/
   check.js                        Executes the two leave-one-out validation suites in command line
   chance_test.js                  Statistical significance testing: random universes and surrogate formulas
   make_images.py                  Regenerates favicon and social media metadata previews
-grm.py                            Condensed matter relational test bench (Full CI, quantum-to-macro multi-scale engine)
-grm_path_solver.py                GRM-based path optimization solver
-lk_path_solver.py                 Lin-Kernighan 2 (LK2) comparison solver
-tsplib_lin318_grm_candidate.png   GRM route visualization for TSPLIB lin318
-tsplib_lin318_lk2.png             LK2 route visualization for TSPLIB lin318
 site/                             Production-ready site distribution (index.html, metadata, sitemaps)
 ```
 
@@ -331,7 +192,6 @@ node scripts/check.js            # Run both cosmological validation tests (defau
 node scripts/check.js standard   # Run both tests under standard model priors
 node scripts/layout.js           # Recompute relational network coordinates after edits
 python3 scripts/build.py         # Rebuild site/index.html
-python3 grm.py                   # Run the condensed matter multi-scale benchmark
 ```
 
 To regenerate visual assets (`pip install pillow`), place `Newsreader.ttf` and `IBMPlexSans.ttf` inside `fonts/` and run `python3 scripts/make_images.py`.
@@ -375,7 +235,7 @@ Rules:
 
 ## License
 
-- Code (`src/`, `scripts/`, `grm.py`): [MIT](LICENSE).
+- Code (`src/`, `scripts/`): [MIT](LICENSE).
 - Conceptual texts, notebooks, and media: [CC BY 4.0](LICENSE-CONTENT.md).
 
 ---
