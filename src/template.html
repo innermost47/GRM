@@ -1355,6 +1355,10 @@
         <div class="seg" id="deSeg"></div>
       </div>
       <div class="ctl">
+        <span>Masse des neutrinos</span>
+        <div class="seg" id="nuSeg"></div>
+      </div>
+      <div class="ctl">
         <span>Mesures dépendant du modèle standard</span>
         <div class="seg" id="mdSeg"></div>
       </div>
@@ -1479,47 +1483,317 @@
     </div>
   </section>
 
+  <!-- ===== CSS : à ajouter dans la feuille de style de la page ===== -->
+  <style>
+    .bets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .bet {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--k-claim);
+      border-radius: var(--radius);
+      padding: 18px 20px 16px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      min-width: 0;
+    }
+    .bet.loop {
+      border-top-color: var(--k-zero);
+    }
+    .bet-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      justify-self: start;
+      font: 600 11.5px/1 var(--f-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--k-claim);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 5px 9px;
+    }
+    .bet.loop .bet-date {
+      color: var(--k-zero);
+    }
+    .bet h3 {
+      margin: 0;
+      font-family: var(--f-display);
+      font-weight: 500;
+      font-size: 21px;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .bet > p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+    .bet-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .bet-hero div {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+    }
+    .bet-hero b {
+      display: block;
+      font: 500 26px/1.1 var(--f-display);
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .bet-hero span {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .bet dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 14px;
+      font-size: 13.5px;
+    }
+    .bet dt {
+      color: var(--ink-2);
+    }
+    .bet dd {
+      margin: 0;
+      text-align: right;
+      font-family: var(--f-mono);
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .bet .fine {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .bet a {
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    .decider {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 20px 18px;
+      display: grid;
+      gap: 12px;
+    }
+    .decider h3 {
+      margin: 0;
+      font-family: var(--f-display);
+      font-weight: 500;
+      font-size: 19px;
+      color: var(--ink);
+    }
+    .decider > p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink-2);
+      max-width: 72ch;
+    }
+    /* the scale: the loop's label above the axis, rule A's below, so they never overlap (even on a phone) */
+    .scale {
+      position: relative;
+      height: 86px;
+      margin: 4px 8px 0;
+    }
+    .scale .axis {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 40px;
+      height: 2px;
+      background: var(--line);
+    }
+    .scale .tick {
+      position: absolute;
+      top: 37px;
+      width: 1px;
+      height: 8px;
+      background: var(--line);
+    }
+    .scale .end {
+      position: absolute;
+      top: 50px;
+      font: 11.5px var(--f-mono);
+      color: var(--muted);
+    }
+    .scale .end.r {
+      right: 0;
+    }
+    .scale .end.l {
+      left: 0;
+    }
+    .scale .pin {
+      position: absolute;
+      transform: translateX(-50%);
+      font: 600 12px var(--f-mono);
+      white-space: nowrap;
+    }
+    .scale .pin::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 11px;
+      height: 11px;
+      margin-left: -5.5px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 3px var(--paper);
+    }
+    .scale .pin.b {
+      top: 6px;
+      color: var(--k-zero);
+    }
+    .scale .pin.b::after {
+      top: 29px;
+    }
+    .scale .pin.a {
+      top: 64px;
+      color: var(--k-claim);
+    }
+    .scale .pin.a::after {
+      top: -29px;
+    }
+    .agree {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .agree span {
+      font-size: 12.5px;
+      color: var(--good);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+  </style>
+
+  <!-- ===== HTML : remplace le bloc <div class="prose dated">…</div> de la section #outputs ===== -->
   <section class="block" id="outputs">
     <header>
       <div class="eyebrow">Ce qui sort du réseau</div>
       <h2>Les valeurs que personne n'a mesurées directement</h2>
       <p>
         Grandeurs calculées par le réseau, avec leur incertitude. Les cibles
-        sont celles qu'une expérience pourra confirmer ou démentir.
+        sont celles qu'une expérience pourra confirmer ou démentir. Les
+        prédictions datées sont figées : elles ne changeront plus, même si le
+        modèle évolue.
       </p>
     </header>
-    <div class="prose dated">
-      <h3>Prédictions datées du 30 octobre 2026</h3>
-      <p>
-        Valeurs figées à cette date, avec le réglage H × âge = 1 et le vide
-        local branché. Prédictions révisées le 30 octobre 2026, le jour même de
-        leur publication, après la prise en compte du vide local et de
-        l'incertitude complète sur l'âge des étoiles. La première version
-        donnait H₀ = 71,0 km/s/Mpc et un âge de 13,77 milliards d'années. Elles
-        ne changeront plus, même si le modèle évolue : une mesure future pourra
-        les confirmer ou les démentir.
-      </p>
-      <ul>
-        <li>
-          <strong>Somme des masses des neutrinos :</strong> 0,0607 eV, ordre
-          normal des masses. Fenêtre actuelle : de 0,0587 à 0,0642 eV. À 0,002
-          eV du minimum, cette valeur sera difficile à distinguer d'un neutrino
-          sans masse : la prédiction vraiment testable est l'ordre normal, avec
-          un neutrino le plus léger presque sans masse.
-        </li>
-        <li><strong>Masse du neutrino le plus léger :</strong> 1,55 meV.</li>
-        <li>
-          <strong>Expansion de l'univers (globale) :</strong> 69,2 km/s/Mpc ;
-          autour de la Voie lactée, 74,2 km/s/Mpc, plus rapide car la région est
-          moins dense.
-        </li>
-        <li><strong>Âge de l'univers :</strong> 14,1 milliards d'années.</li>
-        <li>
-          <strong>Masse lourde de la bascule des neutrinos :</strong> 1,2 × 10¹⁵
-          GeV.
-        </li>
-      </ul>
+
+    <div class="bets">
+      <article class="bet">
+        <span class="bet-date">Figée le 30 octobre 2026</span>
+        <h3>Le réseau complet, avec la règle A</h3>
+        <p>
+          Réglage H × âge = 1 et vide local branché. Révisée le jour même de sa
+          publication, après la prise en compte du vide local et de
+          l'incertitude complète sur l'âge des étoiles (la première version
+          donnait H₀ = 71,0 km/s/Mpc et 13,77 milliards d'années).
+        </p>
+        <div class="bet-hero">
+          <div><b>1,55 meV</b><span>neutrino le plus léger</span></div>
+          <div>
+            <b>0,0607 eV</b><span>somme des neutrinos, ordre normal</span>
+          </div>
+        </div>
+        <dl>
+          <dt>Fenêtre actuelle de la somme</dt>
+          <dd>0,0587 – 0,0642 eV</dd>
+          <dt>Expansion de l'univers (globale)</dt>
+          <dd>69,2 km/s/Mpc</dd>
+          <dt>Expansion autour de la Voie lactée</dt>
+          <dd>74,2 km/s/Mpc</dd>
+          <dt>Âge de l'univers</dt>
+          <dd>14,1 milliards d'années</dd>
+          <dt>Masse lourde de la bascule des neutrinos</dt>
+          <dd>1,2 × 10¹⁵ GeV</dd>
+        </dl>
+        <p class="fine">
+          À 0,002 eV du minimum, la somme sera difficile à distinguer d'un
+          neutrino sans masse : la prédiction vraiment testable est l'ordre
+          normal, avec un neutrino le plus léger presque sans masse. La région
+          de la Voie lactée, moins dense, s'étend plus vite que l'univers
+          entier.
+        </p>
+      </article>
+
+      <article class="bet loop">
+        <span class="bet-date">Figée le 4 novembre 2026</span>
+        <h3>La boucle « plein = vide »</h3>
+        <p>
+          Les trois neutrinos sont trois ondes dont la part commune (le plein)
+          et les écarts qui s'annulent (le vide) pèsent autant : la formule de
+          Koide, qui tient pour l'électron, le muon et le tau, avec une onde en
+          opposition. Aucun réglage : seuls les écarts de masse mesurés entrent.
+        </p>
+        <div class="bet-hero">
+          <div><b>0,36 meV</b><span>neutrino le plus léger</span></div>
+          <div>
+            <b>0,0594 eV</b><span>somme des neutrinos, ordre normal</span>
+          </div>
+        </div>
+        <dl>
+          <dt>Masse du tau (depuis l'électron et le muon)</dt>
+          <dd>1776,969 MeV</dd>
+          <dt>Masse vue en désintégration bêta</dt>
+          <dd>8,84 meV</dd>
+          <dt>Double bêta sans neutrino</dt>
+          <dd>1,1 – 4,1 meV</dd>
+          <dt>Somme vue par la cosmologie</dt>
+          <dd>59,35 ± 0,30 meV</dd>
+        </dl>
+        <p class="fine">
+          Archivée sur Zenodo avec ses conséquences :
+          <a
+            href="https://doi.org/10.5281/zenodo.23964101"
+            target="_blank"
+            rel="noopener"
+            >DOI 10.5281/zenodo.23964101</a
+          >.
+        </p>
+      </article>
     </div>
+
+    <div class="decider">
+      <h3>Deux règles rivales, une mesure pour les départager</h3>
+      <p>
+        Elles ne peuvent pas être vraies ensemble : branchées toutes les deux,
+        le réseau casse. Le choix se fait dans les réglages (« Masse des
+        neutrinos »). Ce qui les sépare, c'est la masse du neutrino le plus
+        léger.
+      </p>
+      <!-- positions sur une échelle logarithmique de 0,1 à 10 meV : left = (log10(m) + 1) / 2 -->
+      <div
+        class="scale"
+        role="img"
+        aria-label="Masse du neutrino le plus léger : 0,36 meV pour la boucle, 1,55 meV pour la règle A, sur une échelle de 0,1 à 10 meV"
+      >
+        <div class="axis"></div>
+        <span class="tick" style="left: 0%"></span
+        ><span class="tick" style="left: 50%"></span
+        ><span class="tick" style="left: 100%"></span>
+        <span class="end l">0,1 meV</span><span class="end r">10 meV</span>
+        <span class="pin b" style="left: 27.8%">boucle · 0,36 meV</span>
+        <span class="pin a" style="left: 59.5%">règle A · 1,55 meV</span>
+      </div>
+      <div class="agree">
+        <span>✓ toutes deux : ordre normal</span
+        ><span>✓ toutes deux : somme proche du minimum</span>
+      </div>
+    </div>
+
     <div class="card">
       <div class="tablewrap"><table id="outTable"></table></div>
     </div>
